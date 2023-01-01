@@ -12,7 +12,23 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:grouped_list/grouped_list.dart';
 
 class PeopleDetailsPage extends StatelessWidget {
-  PeopleDetailsPage({super.key});
+  final String? name;
+  final String? gender;
+  final String? nid;
+  final String? phone;
+  final String? union;
+  final String? id;
+
+  final String? image;
+  PeopleDetailsPage(
+      {super.key,
+      this.gender,
+      this.image,
+      this.id,
+      this.name,
+      this.nid,
+      this.phone,
+      this.union});
 
   final controller = Get.put(DetailsPageController());
 
@@ -29,23 +45,27 @@ class PeopleDetailsPage extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.blue.withOpacity(.5),
         ),
-        body: controller.obx(
-          (state) => SingleChildScrollView(
+        body: controller.obx((state) {
+          return SingleChildScrollView(
             child: Column(children: [
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: CircleAvatar(
-                            radius: 40,
-                            backgroundImage:
-                                AssetImage("assets/pngwing.com.png")),
-                      ),
-                    ),
+                        flex: 3,
+                        child: Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: image == null
+                                ? CircleAvatar(
+                                    radius: 40,
+                                    backgroundImage:
+                                        AssetImage("assets/pngwing.com.png"))
+                                : CircleAvatar(
+                                    radius: 40,
+                                    backgroundImage: NetworkImage(
+                                        "https://ezze.dev/donation/" +
+                                            image.toString())))),
                     Expanded(
                       flex: 1,
                       child: SizedBox(
@@ -57,19 +77,19 @@ class PeopleDetailsPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Name: ${state?[0].contacts?.name ?? " "}",
+                          Text("Name: ${name ?? " "}",
                               style: textTheme.titleSmall
                                   ?.copyWith(color: Colors.black)),
-                          Text("Gender:  ${state?[0].contacts?.gender ?? ""}",
+                          Text("Gender:  ${gender ?? ""}",
                               style: textTheme.titleSmall
                                   ?.copyWith(color: Colors.black)),
-                          Text("NID:  ${state?[0].contacts?.nidBirth ?? ""}",
+                          Text("NID:  ${nid ?? ""}",
                               style: textTheme.titleSmall
                                   ?.copyWith(color: Colors.black)),
-                          Text("Phone:  ${state?[0].contacts?.mobile ?? ""}",
+                          Text("Phone:  ${phone ?? ""}",
                               style: textTheme.titleSmall
                                   ?.copyWith(color: Colors.black)),
-                          Text("Union:  ${state?[0].contacts?.union ?? ""}",
+                          Text("Union:  ${union ?? ""}",
                               style: textTheme.titleSmall
                                   ?.copyWith(color: Colors.black)),
                         ],
@@ -93,7 +113,7 @@ class PeopleDetailsPage extends StatelessWidget {
                       color: ThemeData.light().focusColor,
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
-                        child: Text("Total donation:67",
+                        child: Text("Total donation:${state?.length}",
                             style: textTheme.bodyText1
                                 ?.copyWith(color: Colors.blue)),
                       ),
@@ -103,10 +123,8 @@ class PeopleDetailsPage extends StatelessWidget {
                         // width: 80,
                         child: ElevatedButton(
                             onPressed: (() {
-                              Get.to(
-                                  DonationFormPage(
-                                      name: state?[0].contacts?.name),
-                                  arguments: {"c_id": state?[0].contactId});
+                              Get.to(DonationFormPage(name: name),
+                                  arguments: {"c_id": id});
                             }),
                             child: Text("Donate"))),
                   ],
@@ -119,26 +137,31 @@ class PeopleDetailsPage extends StatelessWidget {
               SizedBox(
                 height: 0,
               ),
-              Column(
-                children: List.generate(state!.length, (index) {
-                  final item = state[index];
+              state!.isEmpty
+                  ? Center(
+                      child: Text("No Data found"),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(state.length, (index) {
+                        final item = state[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DonationCard(
-                      amount: item.amount,
-                      date: item.donationDate,
-                      details: item.description,
-                      image: item.image,
-                      name: item.itemName,
-                      quantity: item.quantity,
-                    ),
-                  );
-                }),
-              )
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DonationCard(
+                            amount: item.amount.toString(),
+                            date: item.donationDate.toString(),
+                            details: item.description.toString(),
+                            image: item.image,
+                            name: item.itemName.toString(),
+                            quantity: item.quantity.toString(),
+                          ),
+                        );
+                      }),
+                    )
             ]),
-          ),
-        ));
+          );
+        }));
   }
 }
 
@@ -148,7 +171,7 @@ class DonationCard extends StatelessWidget {
   final String? amount;
   final String? quantity;
   final String? details;
-  final String? image;
+  final List<String>? image;
   const DonationCard(
       {Key? key,
       this.amount,
@@ -163,10 +186,8 @@ class DonationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
             width: double.infinity,
             color: Color.fromARGB(255, 179, 217, 235),
@@ -213,17 +234,31 @@ class DonationCard extends StatelessWidget {
                 ),
                 Container(
                   height: 200,
-                  child: AspectRatio(
-                      aspectRatio: 6 / 4,
-                      child: Image.network(
-                        image.toString(),
-                      )),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: image == null
+                          ? List.generate(
+                              1,
+                              (index) => Image.asset(
+                                    "assets/charity.png",
+                                    height: 100,
+                                  ))
+                          : List.generate(
+                              image!.length,
+                              (index) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.network(
+                                      "https://ezze.dev/donation/" +
+                                          image![index].toString(),
+                                    ),
+                                  )),
+                    ),
+                  ),
                 )
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          )
+        ]));
   }
 }

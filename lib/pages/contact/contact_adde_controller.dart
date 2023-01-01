@@ -14,6 +14,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 class ContactController extends GetxController {
   RxString query = "".obs;
   var image;
+  var profile;
 
   final dioClient = DioClient(BASE_URL, Dio());
   GetStorage box = GetStorage();
@@ -70,9 +71,11 @@ class ContactController extends GetxController {
       request.fields.addAll(map);
       request.headers['authorization'] = 'Bearer $token';
 
-      var multipartFile = await http.MultipartFile.fromPath(
-          'nid_image', image); //returns a Future<MultipartFile>
+      var multipartFile = await http.MultipartFile.fromPath('nid_image', image);
+      var multipartFile2 = await http.MultipartFile.fromPath('image', profile);
+      //returns a Future<MultipartFile>
       request.files.add(multipartFile);
+      request.files.add(multipartFile2);
       var response = await request.send();
       final res = await http.Response.fromStream(response);
       print(res.body);

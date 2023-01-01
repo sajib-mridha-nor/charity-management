@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.donation_tracker">
+    package="com.ezzetech.charitymanagement">
    <application
-        android:label="donation_tracker"
+        android:label="Charity Management"
         android:name="${applicationName}"
         
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
        
         <activity
             android:name=".MainActivity"

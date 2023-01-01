@@ -72,16 +72,27 @@ class _SearchPageState extends State<SearchPage> {
               itemBuilder: (context, item, index) => PeopleCard(
                     name: item.name.toString(),
                     nid: item.nidBirth.toString(),
+                    image: item.image,
                     phone: item.mobile.toString(),
                     union: item.union.toString(),
                     onClick: () {
-                      Get.to(PeopleDetailsPage(), arguments: {"c_id": item.id});
+                      print(item.id);
+                      Get.to(
+                          () => PeopleDetailsPage(
+                              gender: item.gender,
+                              name: item.name,
+                              phone: item.mobile,
+                              nid: item.nidBirth,
+                              image: item.image,
+                              union: item.union,
+                              id: item.id.toString()),
+                          arguments: {"d_id": item.id});
                     },
                     onDonate: () {
                       Get.to(
-                          DonationFormPage(
-                            name: item.name,
-                          ),
+                          () => DonationFormPage(
+                                name: item.name,
+                              ),
                           arguments: {"c_id": item.id});
                     },
                   )),

@@ -6,6 +6,7 @@ class PeopleCard extends StatelessWidget {
   const PeopleCard(
       {Key? key,
       this.name,
+      this.image,
       required this.onClick,
       required this.onDonate,
       this.nid,
@@ -15,6 +16,7 @@ class PeopleCard extends StatelessWidget {
   final String? name;
   final String? nid;
   final String? phone;
+  final String? image;
   final String? union;
   final VoidCallback onClick;
   final VoidCallback onDonate;
@@ -41,11 +43,17 @@ class PeopleCard extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: CircleAvatar(
-                        radius: 40,
-                        backgroundImage: AssetImage("assets/pngwing.com.png")),
-                  ),
+                      padding: const EdgeInsets.all(4.0),
+                      child: image == null
+                          ? CircleAvatar(
+                              radius: 40,
+                              backgroundImage:
+                                  AssetImage("assets/pngwing.com.png"))
+                          : CircleAvatar(
+                              radius: 40,
+                              backgroundImage: NetworkImage(
+                                  "https://ezze.dev/donation/" +
+                                      image.toString()))),
                 ),
                 Expanded(
                   flex: 1,

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:donation_tracker/pages/model/donate_get_response.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:donation_tracker/utils/constants.dart';
@@ -12,13 +13,15 @@ import 'package:path/path.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class DetailsPageController extends GetxController
-    with StateMixin<List<Donate>> {
+    with StateMixin<List<Donation>> {
   final dioClient = DioClient(BASE_URL, Dio());
   GetStorage box = GetStorage();
+  final id = Get.arguments["d_id"];
   var donatio;
 
   @override
   void onInit() {
+    print("bbb $id");
     GetDonationLsit();
 
     super.onInit();
@@ -58,12 +61,12 @@ class DetailsPageController extends GetxController
 
       print("formData v ");
       final res = await dioClient.get(
-        "donates",
+        "contacts/details/$id",
 
         // options:
         //     Options(headers: {"authorization": box.read("token").toString()}),
       );
-      donatio = DonateGetResponse.fromJson(res).data;
+      donatio = DonationDetailsRes.fromJson(res).data;
 
       // final res = await Dio().post("https://ezze.dev/donation/api/v1/contacts",
       //     data: formData,
@@ -72,14 +75,23 @@ class DetailsPageController extends GetxController
       print("dioClient v$donatio ");
 
       // print("ff $res");
+      donatio == []
+          ? change(null, status: RxStatus.success())
+          : change(donatio, status: RxStatus.success());
 
       change(donatio, status: RxStatus.success());
     } catch (e) {
-      change(null, status: RxStatus.error());
       print("catch v $e");
 
       var error = NetworkExceptions.getDioException(e);
       var message = NetworkExceptions.getErrorMessage(error);
+      change(null, status: RxStatus.error());
+      Get.snackbar(
+        "No Data found",
+        " ",
+        backgroundColor: Colors.green,
+        snackPosition: SnackPosition.BOTTOM,
+      );
       print(message);
     }
   }

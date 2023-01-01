@@ -15,6 +15,7 @@ class DonationController extends GetxController {
 
   Map<String, dynamic> map = {};
   List images = [];
+  List result = [];
   var image;
   RxBool isLoading = false.obs;
 
@@ -24,19 +25,53 @@ class DonationController extends GetxController {
   }
 
   postDonation() async {
+    map["image[]"] = [];
     try {
+      var imgl = images.length;
       isLoading(true);
+      print("mm $images");
 
       map["contact_id"] = id;
-      map["image"] =
-          await dio.MultipartFile.fromFile(image, filename: basename(image));
-      print(map["image"]);
 
-      //  List.generate(
-      //     images.length,
-      //     (index) async => await dio.MultipartFile.fromFile(
-      //         images[index],
-      //         filename:basename(images[index]) ));
+      for (var i = 0; i < images.length; i++) {
+        map["image[]"].add(
+          await dio.MultipartFile.fromFile(images[i],
+              filename: basename(images[i])),
+        );
+      }
+
+      //   List.generate(
+      //       images.length,
+      //       (index) async => await dio.MultipartFile.fromFile(images[index],
+      //           filename: basename(images[index])))
+
+      //   [
+      // await dio.MultipartFile.fromFile(images[0],
+      //     filename: basename(images[0])),
+      // await dio.MultipartFile.fromFile(images[1],
+      //     filename: basename(images[1])),
+      // await dio.MultipartFile.fromFile(images[2],
+      //     filename: basename(images[2])),
+      // await dio.MultipartFile.fromFile(images[3],
+      //     filename: basename(images[3])),
+      // await dio.MultipartFile.fromFile(images[4],
+      //     filename: basename(images[4])),
+      // await dio.MultipartFile.fromFile(images[5],
+      // filename: basename(images[5]))
+      // ];
+
+      for (var i = 0; i < images.length; i++) {}
+      print("mm ${map["image"]}");
+
+      //     await dio.MultipartFile.fromFile(image, filename: basename(image));
+      // print(map["image"]);
+      // images.forEach((element) async => map["image"].addAll(
+      //    );
+      // List.generate(images.length, (index) async {
+      //   images.add(
+      //   map["image"] = images;
+      // });
+
       final formData = dio.FormData.fromMap(map);
       // final res = await Dio().post("https://ezze.dev/donation/api/v1/donates",
       //     data: formData,

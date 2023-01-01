@@ -74,7 +74,18 @@ class ContactForm extends StatelessWidget {
                   SizedBox(
                     height: 8,
                   ),
+                  CustomFilePicker(
+                      require: false,
+                      hint: "Selecte profile Photo",
+                      onChange: (file) {
+                        controller.profile = file.path;
+                        print("onchanggggg ${file}");
+                      }),
+                  SizedBox(
+                    height: 20,
+                  ),
                   CustomTextField(
+                    keyboardType: TextInputType.phone,
                     helperTxt: "Write receiver phone no.",
                     hint: "Write receiver phone no.",
                     onChange: (value) {
@@ -86,6 +97,7 @@ class ContactForm extends StatelessWidget {
                   ),
                   CustomTextField(
                     require: false,
+                    keyboardType: TextInputType.number,
                     helperTxt: "Write receiver NID no.",
                     hint: "Write receiver NID no.",
                     onChange: (value) {

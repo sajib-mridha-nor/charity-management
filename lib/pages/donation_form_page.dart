@@ -84,15 +84,19 @@ class _DonationFormPageState extends State<DonationFormPage> {
                     height: 16,
                   ),
                   CustomTextField(
+                    keyboardType: TextInputType.number,
                     helperTxt: "Total amount ৳",
-                    hint: '',
-                    onChange: (t) {},
+                    hint: 'Total amount ৳',
+                    onChange: (t) {
+                      controller.map["total_amount"] = t.toString();
+                    },
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   CustomTextField(
                     require: false,
+                    keyboardType: TextInputType.number,
                     label: "Donation quantity",
                     helperTxt: "Write donation quantity ",
                     hint: "Write donation quantity ",
@@ -128,8 +132,8 @@ class _DonationFormPageState extends State<DonationFormPage> {
                   CustomFilePicker(
                       hint: "Donation Item Photo",
                       onChange: (file) {
-                        controller.image = file.path;
-                        // controller.images.add(file.path);
+                        // controller.image = file.path;
+                        controller.images.add(file.path);
                         // controller.map["mimage"];
                         print(file.path);
                       }),
@@ -141,11 +145,10 @@ class _DonationFormPageState extends State<DonationFormPage> {
                       txtClr: Colors.white,
                       loading: controller.isLoading.value,
                       onClick: () {
-                        print(GetStorage().read("profile"));
-                        controller.postDonation();
                         if (_formKey.currentState!.validate()) {
+                          controller.postDonation();
                         } else {}
-                        print(controller.map);
+                        print(controller.images);
                       },
                       title: ' Add Donation',
                     ),

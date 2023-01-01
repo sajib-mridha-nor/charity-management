@@ -1,4 +1,4 @@
-package com.example.donation_tracker
+package com.ezzetech.charitymanagement
 
 import io.flutter.embedding.android.FlutterActivity
 

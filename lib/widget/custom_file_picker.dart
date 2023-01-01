@@ -85,9 +85,11 @@ class _CustomFilePickerState extends State<CustomFilePicker> {
       image.add(File(element!.path));
     });
     _inputController.text = basename(image[0].path);
-    widget.onChange(image[0]);
+    image.forEach((element) {
+      widget.onChange(element);
+    });
     setState(() {
-      _selectedFile = image[0];
+      _selectedFile = File(image[0].path);
     });
     print(image);
   }
@@ -96,16 +98,17 @@ class _CustomFilePickerState extends State<CustomFilePicker> {
     final XFile? pickedFile = await ImagePicker().pickImage(
         source: ImageSource.camera,
         maxHeight: 1200,
-        maxWidth: 1800,
+        maxWidth: 1000,
         imageQuality: 40);
     print("picker fff$pickedFile");
-    // source: ImageSource
-    //     .camera); //This opens the gallery and lets the user pick the image
+
     if (pickedFile == null) return;
-    //Checks if the user did actually pick something
 
     image.add(File(pickedFile.path));
     print("picker fff$image");
+    // image.forEach((element) {
+    //   widget.onChange(element);
+    // });
 
     _inputController.text = basename(image[0].path);
     widget.onChange(image[0]);

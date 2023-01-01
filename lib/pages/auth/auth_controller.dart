@@ -24,6 +24,7 @@ class AuthController extends GetxController {
 
       final res = await dioClient.post("login", data: formData);
       box.write("token", res["token"]);
+      box.write("profile", res);
 
       print("ff $res");
       Get.snackbar(

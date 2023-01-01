@@ -173,35 +173,35 @@ class LoginPage extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: RichText(
-                  selectionColor: Colors.blue,
-                  text: TextSpan(
-                    text: "If don't account?",
-                    style: const TextStyle(fontSize: 18, color: Colors.black),
-                    children: [
-                      TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Get.to(RegiPage());
-                              // print(isNewSchool);
-                              // setState(() {
-                              //   isNewSchool =
-                              //       !isNewSchool;
-                              // });
-                            },
-                          text: ' Registration',
-                          style: const TextStyle(shadows: [
-                            Shadow(
-                                offset: Offset(1, 1),
-                                blurRadius: 4.0,
-                                color: Colors.black),
-                          ], color: Colors.white, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(16.0),
+              //   child: RichText(
+              //     selectionColor: Colors.blue,
+              //     text: TextSpan(
+              //       text: "If don't account?",
+              //       style: const TextStyle(fontSize: 18, color: Colors.black),
+              //       children: [
+              //         TextSpan(
+              //             recognizer: TapGestureRecognizer()
+              //               ..onTap = () {
+              //                 Get.to(RegiPage());
+              //                 // print(isNewSchool);
+              //                 // setState(() {
+              //                 //   isNewSchool =
+              //                 //       !isNewSchool;
+              //                 // });
+              //               },
+              //             text: ' Registration',
+              //             style: const TextStyle(shadows: [
+              //               Shadow(
+              //                   offset: Offset(1, 1),
+              //                   blurRadius: 4.0,
+              //                   color: Colors.black),
+              //             ], color: Colors.white, fontWeight: FontWeight.bold)),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

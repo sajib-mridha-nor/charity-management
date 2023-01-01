@@ -63,10 +63,10 @@ class CustomButton extends StatelessWidget {
                             fontSize: fontSize ?? 20,
                             color: txtClr,
                             shadows: [
-                              Shadow(
-                                  offset: Offset(1, 1),
-                                  blurRadius: 4.0,
-                                  color: Colors.black),
+                              // Shadow(
+                              //     offset: Offset(1, 1),
+                              //     blurRadius: 4.0,
+                              //     color: Colors.black),
                             ])
                         //  TextStyle(
                         //     fontWeight: FontWeight.w600,
