@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:donation_tracker/pages/details_page_controller.dart';
 import 'package:donation_tracker/pages/donation_form_page.dart';
+import 'package:donation_tracker/pages/home_page.dart';
 import 'package:donation_tracker/utils/hexcolor.dart';
 import 'package:donation_tracker/widget/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,13 @@ class PeopleDetailsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         // backgroundColor: Color.fromARGB(219, 201, 224, 244),
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: (() {
+                Get.off(() => HomePage());
+              }),
+              icon: Icon(
+                Icons.arrow_back,
+              )),
           title: Text(
             "Details page",
           ),
@@ -110,9 +118,20 @@ class PeopleDetailsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      color: ThemeData.light().focusColor,
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset:
+                                  Offset(0, 2), // changes position of shadow
+                            ),
+                          ],
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.circular(10)),
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(6.0),
                         child: Text("Total donation:${state?.length}",
                             style: textTheme.bodyText1
                                 ?.copyWith(color: Colors.blue)),

@@ -16,12 +16,12 @@ class DetailsPageController extends GetxController
     with StateMixin<List<Donation>> {
   final dioClient = DioClient(BASE_URL, Dio());
   GetStorage box = GetStorage();
-  final id = Get.arguments["d_id"];
+  final id = Get.arguments["c_id"];
   var donatio;
 
   @override
   void onInit() {
-    print("bbb $id");
+    print("jj $id");
     GetDonationLsit();
 
     super.onInit();
@@ -75,9 +75,9 @@ class DetailsPageController extends GetxController
       print("dioClient v$donatio ");
 
       // print("ff $res");
-      donatio == []
-          ? change(null, status: RxStatus.success())
-          : change(donatio, status: RxStatus.success());
+      // donatio == []
+      //     ? change(null, status: RxStatus.success())
+      //     : change(donatio, status: RxStatus.success());
 
       change(donatio, status: RxStatus.success());
     } catch (e) {
@@ -89,7 +89,7 @@ class DetailsPageController extends GetxController
       Get.snackbar(
         "No Data found",
         " ",
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green.withOpacity(0.5),
         snackPosition: SnackPosition.BOTTOM,
       );
       print(message);

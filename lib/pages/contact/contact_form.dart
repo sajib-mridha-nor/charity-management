@@ -70,7 +70,7 @@ class ContactForm extends StatelessWidget {
                       labelStyle:
                           textTheme.displayMedium?.copyWith(fontSize: 18),
                       items: ["Male", "Female"],
-                      initialValue: "Male"),
+                      initialValue: ""),
                   SizedBox(
                     height: 8,
                   ),
@@ -85,6 +85,7 @@ class ContactForm extends StatelessWidget {
                     height: 20,
                   ),
                   CustomTextField(
+                    maxLength: 11,
                     keyboardType: TextInputType.phone,
                     helperTxt: "Write receiver phone no.",
                     hint: "Write receiver phone no.",
@@ -98,8 +99,8 @@ class ContactForm extends StatelessWidget {
                   CustomTextField(
                     require: false,
                     keyboardType: TextInputType.number,
-                    helperTxt: "Write receiver NID no.",
-                    hint: "Write receiver NID no.",
+                    helperTxt: "Write receiver NID no. or BD certificate no.",
+                    hint: "Write receiver NID no. or BD certificate no.",
                     onChange: (value) {
                       controller.map["nid_birth"] = value.toString();
                     },
@@ -117,17 +118,17 @@ class ContactForm extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  CustomTextField(
-                    require: false,
-                    helperTxt: "Write receiver BD certificate no.(if NID N/A)",
-                    hint: "Write receiver BD certificate no.",
-                    onChange: (value) {
-                      controller.map["nid_birth"] = value.toString();
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  // CustomTextField(
+                  //   require: false,
+                  //   helperTxt: "Write receiver BD certificate no.(if NID N/A)",
+                  //   hint: "Write receiver BD certificate no.",
+                  //   onChange: (value) {
+                  //     controller.map["nid_birth"] = value.toString();
+                  //   },
+                  // ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
                   CustomTextField(
                     helperTxt: "Write receiver address",
                     hint: "Write receiver address",

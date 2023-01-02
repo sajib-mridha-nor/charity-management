@@ -27,85 +27,85 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profile = box.read("profile");
-    return controller.obx((state) => RefreshIndicator(
-          onRefresh: _pullRefresh,
-          child: Scaffold(
-            drawer: SafeArea(
-              child: Drawer(
-                child: ListView(
-                  // Important: Remove any padding from the ListView.
-                  padding: EdgeInsets.zero,
-                  children: <Widget>[
-                    UserAccountsDrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(.5),
-                      ),
-                      accountName: Text(profile["user"]["name"] ?? ''),
-                      accountEmail: Text(profile["user"]["email"] ?? ""),
-                      currentAccountPicture: CircleAvatar(
-                        // backgroundColor: Colors.orange,
-                        child: Text(
-                          profile["user"]["name"].substring(0, 1) ?? '',
-                          style: TextStyle(fontSize: 40.0),
-                        ),
+    return controller.obx((state) => Scaffold(
+          drawer: SafeArea(
+            child: Drawer(
+              child: ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  UserAccountsDrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withOpacity(.5),
+                    ),
+                    accountName: Text(profile["user"]["name"] ?? ''),
+                    accountEmail: Text(profile["user"]["email"] ?? ""),
+                    currentAccountPicture: CircleAvatar(
+                      // backgroundColor: Colors.orange,
+                      child: Text(
+                        profile["user"]["name"].substring(0, 1) ?? '',
+                        style: TextStyle(fontSize: 40.0),
                       ),
                     ),
-                    ListTile(
-                      leading: Icon(Icons.home),
-                      title: Text("Home"),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.settings),
-                      title: Text("Settings"),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.contacts),
-                      title: Text("Contact Us"),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    // ListTile(
-                    //   leading: Icon(Icons.logout),
-                    //   title: Text("Log out"),
-                    //   onTap: () {
-                    //     Get.offAll(LoginPage());
-                    //     box.remove("profile");
-                    //     box.remove("token");
-                    //     // Navigator.pop(context);
-                    //   },
-                    // ),
-                  ],
-                ),
-              ),
-            ),
-            backgroundColor: Colors.blueGrey,
-            appBar: AppBar(
-              iconTheme: IconThemeData(color: Colors.white),
-              backgroundColor: Colors.blue.withOpacity(.5),
-              centerTitle: true,
-              title: const Text(
-                "Charity Management",
-                style: TextStyle(color: Colors.white),
-              ),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      Get.to(SearchPage());
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.home),
+                    title: Text("Home"),
+                    onTap: () {
+                      Navigator.pop(context);
                     },
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ))
-              ],
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text("Settings"),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.contacts),
+                    title: Text("Contact Us"),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  // ListTile(
+                  //   leading: Icon(Icons.logout),
+                  //   title: Text("Log out"),
+                  //   onTap: () {
+                  //     Get.offAll(LoginPage());
+                  //     box.remove("profile");
+                  //     box.remove("token");
+                  //     // Navigator.pop(context);
+                  //   },
+                  // ),
+                ],
+              ),
             ),
-            body: SingleChildScrollView(
+          ),
+          backgroundColor: Colors.blueGrey,
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Colors.blue.withOpacity(.5),
+            centerTitle: true,
+            title: const Text(
+              "Charity Management",
+              style: TextStyle(color: Colors.white),
+            ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.to(SearchPage());
+                  },
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ))
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: RefreshIndicator(
+              onRefresh: _pullRefresh,
               child: Column(
                 children: [
                   // Center(

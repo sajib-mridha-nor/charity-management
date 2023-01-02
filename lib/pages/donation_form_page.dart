@@ -24,8 +24,6 @@ class _DonationFormPageState extends State<DonationFormPage> {
 
   final controller = Get.put(DonationController());
 
-  DateTime selectedDate = DateTime.now();
-
   List<String> _union = [
     "Chamari",
     "Chhatardighi",
@@ -74,6 +72,7 @@ class _DonationFormPageState extends State<DonationFormPage> {
                     height: 16,
                   ),
                   CustomTextField(
+                    require: true,
                     hint: "Write item name",
                     helperTxt: "Write item name",
                     onChange: (t) {
@@ -84,6 +83,7 @@ class _DonationFormPageState extends State<DonationFormPage> {
                     height: 16,
                   ),
                   CustomTextField(
+                    require: false,
                     keyboardType: TextInputType.number,
                     helperTxt: "Total amount ৳",
                     hint: 'Total amount ৳',

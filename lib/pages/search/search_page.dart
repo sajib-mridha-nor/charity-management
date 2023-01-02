@@ -29,6 +29,13 @@ class _SearchPageState extends State<SearchPage> {
         ]);
   }
 
+  @override
+  void dispose() {
+    controller.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   void onSubmitted(String value) {
     controller.query(value);
     controller.pagingController.refresh();
@@ -86,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
                               image: item.image,
                               union: item.union,
                               id: item.id.toString()),
-                          arguments: {"d_id": item.id});
+                          arguments: {"c_id": item.id});
                     },
                     onDonate: () {
                       Get.to(

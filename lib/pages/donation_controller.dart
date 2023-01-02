@@ -2,9 +2,11 @@ import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:donation_tracker/pages/donation_form_page.dart';
 import 'package:donation_tracker/pages/home_page.dart';
+import 'package:donation_tracker/pages/people_details_page.dart';
 import 'package:donation_tracker/utils/constants.dart';
 import 'package:donation_tracker/utils/network/dio_client.dart';
 import 'package:donation_tracker/utils/network/network_exceptions.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -81,7 +83,15 @@ class DonationController extends GetxController {
       //     }));
 
       final res = await dioClient.post("donates", data: formData);
-      Get.off(HomePage());
+      Get.snackbar(
+        "Successful",
+        "Submitted Successful, see details list",
+        backgroundColor: Colors.green.withOpacity(0.5),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      Get.off(
+        () => HomePage(),
+      );
       print("ff ${res}");
 
       isLoading(false);

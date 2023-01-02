@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:donation_tracker/pages/donation_form_page.dart';
 import 'package:donation_tracker/pages/home_page.dart';
@@ -105,6 +106,12 @@ class ContactController extends GetxController {
       //     options: Options(
       //         headers: {"authorization": box.read("token").toString()}));
       print("dioClient v ");
+      Get.snackbar(
+        "Successful",
+        "Submitted Successful, see details list",
+        backgroundColor: Colors.green.withOpacity(0.5),
+        snackPosition: SnackPosition.BOTTOM,
+      );
 
       // print("ff $res");
       Get.off(HomePage());

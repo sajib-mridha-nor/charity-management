@@ -8,9 +8,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 main() async {
+  await GetStorage.init();
+  await AppPathProvider.initPath();
   runApp(MyApp());
   WidgetsFlutterBinding.ensureInitialized();
-  await AppPathProvider.initPath();
+  // AppPathProvider.initPath().then((value) => runApp(MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -24,13 +26,14 @@ class _MyAppState extends State<MyApp> {
   GetStorage box = GetStorage();
   @override
   void initState() {
-    AppPathProvider.initPath();
+    // AppPathProvider.initPath();
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // AppPathProvider.initPath();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: DonationTrackerTheme.lightTheme(),
