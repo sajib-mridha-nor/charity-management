@@ -6,6 +6,7 @@ import 'package:donation_tracker/pages/donation_form_page.dart';
 import 'package:donation_tracker/pages/homepage_controller.dart';
 import 'package:donation_tracker/pages/people_details_page.dart';
 import 'package:donation_tracker/pages/auth/login_page.dart';
+import 'package:donation_tracker/pages/sceene_reader.dart/sceen_reader.dart';
 import 'package:donation_tracker/pages/search/search_page.dart';
 import 'package:donation_tracker/pages/search/search_page_controller.dart';
 import 'package:donation_tracker/utils/hexcolor.dart';
@@ -188,7 +189,7 @@ class HomePage extends StatelessWidget {
                         Expanded(
                           child: GestureDetector(
                             onTap: (() {
-                              Get.to(SearchPage());
+                              Get.to(SceenerPage());
                             }),
                             child: StatisticWidget(
                                 height: 150,
