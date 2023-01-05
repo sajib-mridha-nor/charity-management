@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:donation_tracker/pages/contact/contact_adde_controller.dart';
 
 import 'package:donation_tracker/pages/donation_form_page.dart';
+import 'package:donation_tracker/pages/sceene_reader.dart/camera.dart';
+import 'package:donation_tracker/pages/sceene_reader.dart/sceen_reader.dart';
 import 'package:donation_tracker/widget/custom_button.dart';
 import 'package:donation_tracker/widget/custom_dropdown.dart';
 import 'package:donation_tracker/widget/custom_file_picker.dart';
@@ -38,6 +41,8 @@ class _ContactFormState extends State<ContactForm> {
   var nid;
 
   var name;
+  var result;
+  var nidImg;
 
   List<String> _union = [
     "Chamari",
@@ -55,7 +60,7 @@ class _ContactFormState extends State<ContactForm> {
     "Sukash"
   ];
 
-  dialog(contex) {
+  dialog(contex, imageFile, result) {
     return showDialog(
         context: contex,
         builder: (
@@ -167,7 +172,6 @@ class _ContactFormState extends State<ContactForm> {
                             )),
                       ],
                     ),
-
                     Spacer(),
                     Center(
                       child: Row(
@@ -185,23 +189,29 @@ class _ContactFormState extends State<ContactForm> {
                             width: 16,
                           ),
                           ElevatedButton(
-                              onPressed: (() {}), child: Text("Done")),
+                              onPressed: (() {
+                                setState(() {
+                                  print(name);
+                                  name = result[1]["name"];
+                                  print(name);
+                                  nid = result[1]["nid"];
+                                  nidImg = imageFile;
+                                });
+                                Navigator.pop(context);
+                              }),
+                              child: Text("Done")),
                         ],
                       ),
                     ),
                     SizedBox(
                       height: 16,
                     ),
-
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
-                    // Container(
-                    //   child: Text(
-                    //     scannedText,
-                    //     style: TextStyle(fontSize: 20),
-                    //   ),
-                    // )
+                    Container(
+                      child: Text(
+                        scannedText,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
                   ],
                 );
               }));
@@ -241,8 +251,16 @@ class _ContactFormState extends State<ContactForm> {
                         //   width: 8,
                         // ),
                         GestureDetector(
-                          onTap: () {
-                            dialog(context);
+                          onTap: () async {
+                            await availableCameras().then((value) =>
+                                Get.to(() => SceenerPage(cameras: value)));
+                            // result =
+                            //     await getImage(ImageSource.camera).then((data) {
+                            //   imageFile != null
+                            //       ? dialog(context, imageFile, result)
+                            //       : null;
+                            //   print(result);
+                            // });
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -272,6 +290,7 @@ class _ContactFormState extends State<ContactForm> {
                     height: 8,
                   ),
                   CustomTextField(
+                    initialValue: name,
                     hint: "Write receiver name",
                     helperTxt: "Write receiver name",
                     onChange: (t) {
@@ -332,7 +351,7 @@ class _ContactFormState extends State<ContactForm> {
                       require: false,
                       hint: "Selecte NID Photo",
                       onChange: (file) {
-                        controller.image = file.path;
+                        controller.image = nidImg;
                         print("onchanggggg ${file}");
                       }),
                   SizedBox(

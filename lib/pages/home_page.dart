@@ -189,7 +189,7 @@ class HomePage extends StatelessWidget {
                         Expanded(
                           child: GestureDetector(
                             onTap: (() {
-                              Get.to(SceenerPage());
+                              // Get.to(SceenerPage());
                             }),
                             child: StatisticWidget(
                                 height: 150,
