@@ -21,7 +21,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 
 class ContactForm extends StatefulWidget {
-  ContactForm({super.key});
+  final String? name;
+  final String? nid;
+  final XFile? imageFile;
+
+  ContactForm({super.key, this.imageFile, this.name, this.nid});
 
   @override
   State<ContactForm> createState() => _ContactFormState();
@@ -29,7 +33,6 @@ class ContactForm extends StatefulWidget {
 
 class _ContactFormState extends State<ContactForm> {
   final _formKey = GlobalKey<FormState>();
-  late StateSetter _setState;
 
   final controller = Get.put(ContactController());
   bool textScanning = false;
@@ -38,9 +41,9 @@ class _ContactFormState extends State<ContactForm> {
 
   String scannedText = "";
 
-  var nid;
+  String? nid = "";
 
-  var name;
+  String? name = "";
   var result;
   var nidImg;
 
@@ -60,169 +63,215 @@ class _ContactFormState extends State<ContactForm> {
     "Sukash"
   ];
 
-  dialog(contex, imageFile, result) {
-    return showDialog(
-        context: contex,
-        builder: (
-          BuildContext context,
-        ) {
-          return Dialog(
-              insetPadding: EdgeInsets.symmetric(horizontal: 19, vertical: 40),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              // color: Colors.grey.withOpacity(.5),
-              // margin: const EdgeInsets.all(20),
-              child:
-                  StatefulBuilder(// You need this, notice the parameters below:
-                      builder: (BuildContext context, StateSetter setState) {
-                _setState = setState;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (textScanning) const CircularProgressIndicator(),
-                    if (!textScanning && imageFile == null)
-                      Container(
-                        width: 300,
-                        height: 300,
-                        color: Colors.grey[300]!,
-                      ),
-                    if (imageFile != null) Image.file(File(imageFile!.path)),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            padding: const EdgeInsets.only(top: 10),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                onPrimary: Colors.grey,
-                                shadowColor: Colors.grey[400],
-                                elevation: 10,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0)),
-                              ),
-                              onPressed: () {
-                                _setState(() {
-                                  getImage(ImageSource.gallery);
-                                });
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.image,
-                                      size: 30,
-                                    ),
-                                    Text(
-                                      "Gallery",
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color: Colors.grey[600]),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            padding: const EdgeInsets.only(top: 10),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                onPrimary: Colors.grey,
-                                shadowColor: Colors.grey[400],
-                                elevation: 10,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                              ),
-                              onPressed: () {
-                                _setState(() {
-                                  getImage(ImageSource.camera);
-                                });
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.camera_alt,
-                                      size: 30,
-                                    ),
-                                    Text(
-                                      "Camera",
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color: Colors.grey[600]),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )),
-                      ],
-                    ),
-                    Spacer(),
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedButton(
-                              onPressed: (() {
-                                setState(() {
-                                  imageFile = null;
-                                });
-                                Navigator.pop(context);
-                              }),
-                              child: Text("Cencle")),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          ElevatedButton(
-                              onPressed: (() {
-                                setState(() {
-                                  print(name);
-                                  name = result[1]["name"];
-                                  print(name);
-                                  nid = result[1]["nid"];
-                                  nidImg = imageFile;
-                                });
-                                Navigator.pop(context);
-                              }),
-                              child: Text("Done")),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                      child: Text(
-                        scannedText,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    )
-                  ],
-                );
-              }));
-        });
+  @override
+  void initState() {
+    name = widget.name;
+    nid = widget.nid;
+    imageFile = widget.imageFile;
+
+    super.initState();
   }
+
+  // dialog(contex, imageFile, result) {
+  //   return showDialog(
+  //       context: contex,
+  //       builder: (
+  //         BuildContext context,
+  //       ) {
+  //         return Dialog(
+  //             insetPadding: EdgeInsets.symmetric(horizontal: 19, vertical: 40),
+  //             shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(10.0)),
+  //             // color: Colors.grey.withOpacity(.5),
+  //             // margin: const EdgeInsets.all(20),
+  //             child:
+  //                 StatefulBuilder(// You need this, notice the parameters below:
+  //                     builder: (BuildContext context, StateSetter setState) {
+  //               _setState = setState;
+  //               return Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.center,
+  //                 children: [
+  //                   if (textScanning) const CircularProgressIndicator(),
+  //                   if (!textScanning && imageFile == null)
+  //                     Container(
+  //                       width: 300,
+  //                       height: 300,
+  //                       color: Colors.grey[300]!,
+  //                     ),
+  //                   if (imageFile != null) Image.file(File(imageFile!.path)),
+  //                   SizedBox(
+  //                     height: 16,
+  //                   ),
+  //                   Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       Container(
+  //                           margin: const EdgeInsets.symmetric(horizontal: 5),
+  //                           padding: const EdgeInsets.only(top: 10),
+  //                           child: ElevatedButton(
+  //                             style: ElevatedButton.styleFrom(
+  //                               primary: Colors.white,
+  //                               onPrimary: Colors.grey,
+  //                               shadowColor: Colors.grey[400],
+  //                               elevation: 10,
+  //                               shape: RoundedRectangleBorder(
+  //                                   borderRadius: BorderRadius.circular(16.0)),
+  //                             ),
+  //                             onPressed: () {
+  //                               _setState(() {
+  //                                 getImage(ImageSource.gallery);
+  //                               });
+  //                             },
+  //                             child: Container(
+  //                               margin: const EdgeInsets.symmetric(
+  //                                   vertical: 5, horizontal: 5),
+  //                               child: Column(
+  //                                 mainAxisSize: MainAxisSize.min,
+  //                                 children: [
+  //                                   Icon(
+  //                                     Icons.image,
+  //                                     size: 30,
+  //                                   ),
+  //                                   Text(
+  //                                     "Gallery",
+  //                                     style: TextStyle(
+  //                                         fontSize: 13,
+  //                                         color: Colors.grey[600]),
+  //                                   )
+  //                                 ],
+  //                               ),
+  //                             ),
+  //                           )),
+  //                       SizedBox(
+  //                         width: 16,
+  //                       ),
+  //                       Container(
+  //                           margin: const EdgeInsets.symmetric(horizontal: 5),
+  //                           padding: const EdgeInsets.only(top: 10),
+  //                           child: ElevatedButton(
+  //                             style: ElevatedButton.styleFrom(
+  //                               primary: Colors.white,
+  //                               onPrimary: Colors.grey,
+  //                               shadowColor: Colors.grey[400],
+  //                               elevation: 10,
+  //                               shape: RoundedRectangleBorder(
+  //                                   borderRadius: BorderRadius.circular(8.0)),
+  //                             ),
+  //                             onPressed: () {
+  //                               _setState(() {
+  //                                 getImage(ImageSource.camera);
+  //                               });
+  //                             },
+  //                             child: Container(
+  //                               margin: const EdgeInsets.symmetric(
+  //                                   vertical: 5, horizontal: 5),
+  //                               child: Column(
+  //                                 mainAxisSize: MainAxisSize.min,
+  //                                 children: [
+  //                                   Icon(
+  //                                     Icons.camera_alt,
+  //                                     size: 30,
+  //                                   ),
+  //                                   Text(
+  //                                     "Camera",
+  //                                     style: TextStyle(
+  //                                         fontSize: 13,
+  //                                         color: Colors.grey[600]),
+  //                                   )
+  //                                 ],
+  //                               ),
+  //                             ),
+  //                           )),
+  //                     ],
+  //                   ),
+  //                   Spacer(),
+  //                   Center(
+  //                     child: Row(
+  //                       mainAxisAlignment: MainAxisAlignment.center,
+  //                       children: [
+  //                         OutlinedButton(
+  //                             onPressed: (() {
+  //                               setState(() {
+  //                                 imageFile = null;
+  //                               });
+  //                               Navigator.pop(context);
+  //                             }),
+  //                             child: Text("Cencle")),
+  //                         SizedBox(
+  //                           width: 16,
+  //                         ),
+  //                         ElevatedButton(
+  //                             onPressed: (() {
+  //                               setState(() {
+  //                                 print(name);
+  //                                 name = result[1]["name"];
+  //                                 print(name);
+  //                                 nid = result[1]["nid"];
+  //                                 nidImg = imageFile;
+  //                               });
+  //                               Navigator.pop(context);
+  //                             }),
+  //                             child: Text("Done")),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 16,
+  //                   ),
+  //                   Container(
+  //                     child: Text(
+  //                       scannedText,
+  //                       style: TextStyle(fontSize: 20),
+  //                     ),
+  //                   )
+  //                 ],
+  //               );
+  //             }));
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () async {
+                await availableCameras()
+                    .then((value) => Get.to(() => SceenerPage(cameras: value)));
+                // result =
+                //     await getImage(ImageSource.camera).then((data) {
+                //   imageFile != null
+                //       ? dialog(context, imageFile, result)
+                //       : null;
+                //   print(result);
+                // });
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(4),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: Offset(0, 1), // changes position of shadow
+                      ),
+                    ]),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Lottie.asset('assets/sc3.json',
+                      height: 34, width: 34, fit: BoxFit.cover),
+                ),
+              ),
+            ),
+          ),
+        ],
         backgroundColor: Colors.blue.withOpacity(.5),
         centerTitle: true,
         title: Text("Add Contract"),
@@ -250,39 +299,39 @@ class _ContactFormState extends State<ContactForm> {
                         // SizedBox(
                         //   width: 8,
                         // ),
-                        GestureDetector(
-                          onTap: () async {
-                            await availableCameras().then((value) =>
-                                Get.to(() => SceenerPage(cameras: value)));
-                            // result =
-                            //     await getImage(ImageSource.camera).then((data) {
-                            //   imageFile != null
-                            //       ? dialog(context, imageFile, result)
-                            //       : null;
-                            //   print(result);
-                            // });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade100,
-                                borderRadius: BorderRadius.circular(4),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    offset: Offset(
-                                        0, 1), // changes position of shadow
-                                  ),
-                                ]),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              child: Lottie.asset('assets/sc3.json',
-                                  height: 34, width: 34, fit: BoxFit.cover),
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: () async {
+                        //     await availableCameras().then((value) =>
+                        //         Get.to(() => SceenerPage(cameras: value)));
+                        //     // result =
+                        //     //     await getImage(ImageSource.camera).then((data) {
+                        //     //   imageFile != null
+                        //     //       ? dialog(context, imageFile, result)
+                        //     //       : null;
+                        //     //   print(result);
+                        //     // });
+                        //   },
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //         color: Colors.grey.shade100,
+                        //         borderRadius: BorderRadius.circular(4),
+                        //         boxShadow: [
+                        //           BoxShadow(
+                        //             color: Colors.black.withOpacity(0.2),
+                        //             spreadRadius: 1,
+                        //             blurRadius: 1,
+                        //             offset: Offset(
+                        //                 0, 1), // changes position of shadow
+                        //           ),
+                        //         ]),
+                        //     child: Padding(
+                        //       padding: const EdgeInsets.symmetric(
+                        //           horizontal: 8, vertical: 4),
+                        //       child: Lottie.asset('assets/sc3.json',
+                        //           height: 34, width: 34, fit: BoxFit.cover),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -290,7 +339,7 @@ class _ContactFormState extends State<ContactForm> {
                     height: 8,
                   ),
                   CustomTextField(
-                    initialValue: name,
+                    initialValue: widget.name,
                     hint: "Write receiver name",
                     helperTxt: "Write receiver name",
                     onChange: (t) {
@@ -313,7 +362,7 @@ class _ContactFormState extends State<ContactForm> {
                   SizedBox(
                     height: 8,
                   ),
-                  CustomFilePicker(
+                  CustomFilePicker2(
                       require: false,
                       hint: "Selecte profile Photo",
                       onChange: (file) {
@@ -337,6 +386,7 @@ class _ContactFormState extends State<ContactForm> {
                   ),
                   CustomTextField(
                     require: false,
+                    initialValue: widget.nid,
                     keyboardType: TextInputType.number,
                     helperTxt: "Write receiver NID no. or BD certificate no.",
                     hint: "Write receiver NID no. or BD certificate no.",
@@ -347,13 +397,16 @@ class _ContactFormState extends State<ContactForm> {
                   SizedBox(
                     height: 20,
                   ),
-                  CustomFilePicker(
+                  CustomFilePicker2(
+                      initialize: widget.imageFile,
                       require: false,
                       hint: "Selecte NID Photo",
                       onChange: (file) {
-                        controller.image = nidImg;
+                        // file = File(widget.imageFile.path);
+                        controller.image = file;
                         print("onchanggggg ${file}");
                       }),
+
                   SizedBox(
                     height: 20,
                   ),
@@ -392,11 +445,15 @@ class _ContactFormState extends State<ContactForm> {
                     () => CustomButton(
                       loading: controller.isLoading.value,
                       onClick: () {
-                        if (_formKey.currentState!.validate()) {
-                          controller.postContacts();
-                        } else {
-                          print("object");
-                        }
+                        // if (_formKey.currentState!.validate()) {
+                        //   controller.postContacts();
+                        // } else {
+                        //   print("object");
+                        // }
+                        // var file = File(widget.imageFile!.path);
+                        // controller.image = file;
+
+                        print("onchanggggg ${controller.image}");
                         print(controller.map);
                       },
                       title: 'Add Contact',
@@ -412,59 +469,60 @@ class _ContactFormState extends State<ContactForm> {
       ),
     );
   }
-
-  getImage(ImageSource source) async {
-    try {
-      final pickedImage = await ImagePicker().pickImage(source: source);
-      if (pickedImage != null) {
-        textScanning = true;
-
-        setState(() {
-          imageFile = pickedImage;
-        });
-        var result = getRecognisedText(pickedImage);
-        return [pickedImage.path, result];
-      }
-    } catch (e) {
-      textScanning = false;
-      imageFile = null;
-      scannedText = "Error occured while scanning";
-      setState(() {});
-      return "Choose image";
-    }
-  }
-
-  getRecognisedText(XFile image) async {
-    final inputImage = InputImage.fromFilePath(image.path);
-    final textDetector = GoogleMlKit.vision.textRecognizer();
-    var recognisedText = await textDetector.processImage(inputImage);
-    await textDetector.close();
-    scannedText = "";
-    for (TextBlock block in recognisedText.blocks) {
-      for (TextLine line in block.lines) {
-        scannedText = scannedText + line.text + "\n";
-      }
-    }
-    var totalL = scannedText.split(" ");
-    print(totalL);
-
-    if (totalL.contains("ID")) {
-      var nidL = scannedText.split("ID NO:");
-      var namL = scannedText.split("Name:");
-      // var date = l.sublist(1).join('\n').trim();
-      var nidl = nidL[1].split("\n");
-      var namel = namL[1].split("\n");
-      nid = nid[0].trim().toString();
-      name = name[0].trim();
-    } else {
-      return "Please choose clear nid photo";
-    }
-
-    // prefix[0];
-    print("list ${nid[0]}");
-    print("prefix ${name[0]}");
-    textScanning = false;
-    setState(() {});
-    return {"name": name, "nid": nid};
-  }
 }
+
+  // getImage(ImageSource source) async {
+  //   try {
+  //     final pickedImage = await ImagePicker().pickImage(source: source);
+  //     if (pickedImage != null) {
+  //       textScanning = true;
+
+  //       setState(() {
+  //         imageFile = pickedImage;
+  //       });
+  //       var result = getRecognisedText(pickedImage);
+  //       return [pickedImage.path, result];
+  //     }
+  //   } catch (e) {
+  //     textScanning = false;
+  //     imageFile = null;
+  //     scannedText = "Error occured while scanning";
+  //     setState(() {});
+  //     return "Choose image";
+  //   }
+  // }
+
+  // getRecognisedText(XFile image) async {
+    // final inputImage = InputImage.fromFilePath(image.path);
+    // final textDetector = GoogleMlKit.vision.textRecognizer();
+    // var recognisedText = await textDetector.processImage(inputImage);
+    // await textDetector.close();
+    // scannedText = "";
+    // for (TextBlock block in recognisedText.blocks) {
+    //   for (TextLine line in block.lines) {
+    //     scannedText = scannedText + line.text + "\n";
+    //   }
+    // }
+    // var totalL = scannedText.split(" ");
+    // print(totalL);
+
+    // if (totalL.contains("ID")) {
+    //   var nidL = scannedText.split("ID NO:");
+    //   var namL = scannedText.split("Name:");
+    //   // var date = l.sublist(1).join('\n').trim();
+    //   var nidl = nidL[1].split("\n");
+    //   var namel = namL[1].split("\n");
+    //   nid = nid[0].trim().toString();
+    //   name = name[0].trim();
+    // } else {
+    //   return "Please choose clear nid photo";
+    // }
+
+    // // prefix[0];
+    // print("list ${nid[0]}");
+    // print("prefix ${name[0]}");
+    // textScanning = false;
+    // setState(() {});
+    // return {"name": name, "nid": nid};
+  // }
+

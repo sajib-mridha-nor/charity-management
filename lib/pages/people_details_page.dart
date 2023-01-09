@@ -11,6 +11,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:timelines/timelines.dart';
 
 class PeopleDetailsPage extends StatelessWidget {
   final String? name;
@@ -37,7 +38,7 @@ class PeopleDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: HexColor("#FAF6F1"),
         // backgroundColor: Color.fromARGB(219, 201, 224, 244),
         appBar: AppBar(
           leading: IconButton(
@@ -71,9 +72,12 @@ class PeopleDetailsPage extends StatelessWidget {
                                         AssetImage("assets/pngwing.com.png"))
                                 : CircleAvatar(
                                     radius: 40,
-                                    backgroundImage: NetworkImage(
-                                        "https://ezze.dev/donation/" +
-                                            image.toString())))),
+                                    child: CircleAvatar(
+                                        radius: 39,
+                                        backgroundImage: NetworkImage(
+                                            "https://ezze.dev/donation/" +
+                                                image.toString())),
+                                  ))),
                     Expanded(
                       flex: 1,
                       child: SizedBox(
@@ -86,32 +90,48 @@ class PeopleDetailsPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Name: ${name ?? " "}",
-                              style: textTheme.titleSmall
+                              style: textTheme.bodyText2
                                   ?.copyWith(color: Colors.black)),
                           Text("Gender:  ${gender ?? ""}",
-                              style: textTheme.titleSmall
+                              style: textTheme.bodyText2
                                   ?.copyWith(color: Colors.black)),
                           Text("NID:  ${nid ?? ""}",
-                              style: textTheme.titleSmall
+                              style: textTheme.bodyText2
                                   ?.copyWith(color: Colors.black)),
                           Text("Phone:  ${phone ?? ""}",
-                              style: textTheme.titleSmall
+                              style: textTheme.bodyText2
                                   ?.copyWith(color: Colors.black)),
                           Text("Union:  ${union ?? ""}",
-                              style: textTheme.titleSmall
+                              style: textTheme.bodyText2
                                   ?.copyWith(color: Colors.black)),
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                        width: 26,
-                      ),
-                    ),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: SizedBox(
+                    //     width: 26,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
+              // SizedBox(
+              //   height: 500,
+              //   width: 300,
+              //   child: Timeline.tileBuilder(
+              //     builder: TimelineTileBuilder.fromStyle(
+              //       indicatorStyle: IndicatorStyle.outlined,
+              //       itemExtent: 200,
+              //       contentsAlign: ContentsAlign.basic,
+              //       contentsBuilder: (context, index) => Padding(
+              //         padding: const EdgeInsets.all(24.0),
+              //         child: Text('${state?[1].donationDate}'),
+              //       ),
+              //       itemCount: 2,
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: Row(
@@ -133,8 +153,8 @@ class PeopleDetailsPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: Text("Total donation:${state?.length}",
-                            style: textTheme.bodyText1
-                                ?.copyWith(color: Colors.blue)),
+                            style: textTheme.bodyText2
+                                ?.copyWith(color: Colors.blue.shade900)),
                       ),
                     ),
                     SizedBox(
@@ -149,13 +169,14 @@ class PeopleDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Divider(
-                height: 2,
-                thickness: 1,
-              ),
-              SizedBox(
-                height: 0,
-              ),
+              // SizedBox(
+              //   height: 8,
+              // ),
+              // Divider(
+              //   height: 2,
+              //   thickness: 1,
+              // ),
+
               state!.isEmpty
                   ? Center(
                       child: Text("No Data found"),
@@ -206,78 +227,132 @@ class DonationCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            width: double.infinity,
-            color: Color.fromARGB(255, 179, 217, 235),
-            child: Center(
-              child: Text(
-                date.toString(),
-                style: textTheme.bodyLarge?.copyWith(color: Colors.white),
+        child: Row(
+          children: [
+            SizedBox(
+              height: 350,
+              child: TimelineNode(
+                indicator: RotatedBox(
+                  quarterTurns: -1,
+                  child: Text(date.toString()),
+                ),
+                startConnector: DashedLineConnector(
+                  // gapColor: Colors.amber,
+                  color: Colors.blue.shade200, dash: 1,
+                ),
+                endConnector: SolidLineConnector(),
               ),
             ),
-          ),
-          SizedBox(
-            height: 2,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Name: $name",
-                  style: textTheme.bodyLarge,
-                ),
-                Text(
-                  "Amount: ${amount == null ? 0 : amount}",
-                  style: textTheme.bodyLarge,
-                ),
-                // SizedBox(
-                //   height: 2,
-                // ),
-                Text(
-                  "Quantity: ${quantity == null ? 0 : quantity}",
-                  style: textTheme.bodyLarge,
-                ),
-                Text(
-                  "Details: $details",
-                  style: textTheme.bodyLarge,
-                ),
-                // SizedBox(
-                //   height: 2,
-                // ),
-                Text(
-                  "Image: ..",
-                  style: textTheme.bodyLarge,
-                ),
-                Container(
-                  height: 200,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: image == null
-                          ? List.generate(
-                              1,
-                              (index) => Image.asset(
-                                    "assets/charity.png",
-                                    height: 100,
-                                  ))
-                          : List.generate(
-                              image!.length,
-                              (index) => Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.network(
-                                      "https://ezze.dev/donation/" +
-                                          image![index].toString(),
-                                    ),
-                                  )),
-                    ),
-                  ),
-                )
-              ],
+            SizedBox(
+              height: 356,
+              width: MediaQuery.of(context).size.width - 46,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Divider(
+                    //   thickness: 1,
+                    // ),
+                    // Container(
+                    //   width: double.infinity,
+                    //   // color: Color.fromARGB(255, 179, 217, 235),
+                    //   child: Center(
+                    //     child: Text(
+                    //       date.toString(),
+                    //       style: textTheme.bodyLarge
+                    //           ?.copyWith(color: Colors.black),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 2,
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Item: $name",
+                            style: textTheme.bodyText2,
+                          ),
+                          Text(
+                            "Amount: ${amount == null ? 0 : amount}",
+                            style: textTheme.bodyText2,
+                          ),
+                          // SizedBox(
+                          //   height: 2,
+                          // ),
+                          Text(
+                            "Quantity: ${quantity == null ? 0 : quantity}",
+                            style: textTheme.bodyText2,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Details: ",
+                                style: textTheme.bodyText2,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Container(
+                                height: 60,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 1, color: Colors.blue.shade100)),
+                                child: Center(
+                                  child: Text(
+                                    "$details",
+                                    textAlign: TextAlign.justify,
+                                    style: textTheme.bodyText2,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          // SizedBox(
+                          //   height: 2,
+                          // ),
+                          Text(
+                            "Image: ..",
+                            style: textTheme.bodyText2,
+                          ),
+                          Container(
+                            height: 200,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: image == null
+                                    ? List.generate(
+                                        1,
+                                        (index) => Image.asset(
+                                              "assets/charity.png",
+                                              height: 100,
+                                            ))
+                                    : List.generate(
+                                        image!.length,
+                                        (index) => Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Image.network(
+                                                "https://ezze.dev/donation/" +
+                                                    image![index].toString(),
+                                              ),
+                                            )),
+                              ),
+                            ),
+                          ),
+                          // Divider(
+                          //   thickness: 1,
+                          // )
+                        ],
+                      ),
+                    )
+                  ]),
             ),
-          )
-        ]));
+          ],
+        ));
   }
 }

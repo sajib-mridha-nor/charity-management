@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:donation_tracker/pages/contact/contact_form.dart';
 import 'package:donation_tracker/pages/sceene_reader.dart/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -182,16 +183,74 @@ class _SceenerPageState extends State<SceenerPage> {
                 ),
                 Container(
                   child: Text(
-                    "$name",
+                    "Name: $name",
                     // nid == null ? "" : nid,
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
                 Container(
                   child: Text(
-                    nid,
+                    "NID: $nid",
                     // name == null ? "" : name,
                     style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                SizedBox(
+                  height: 48,
+                ),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedButton(
+                          autofocus: false,
+                          style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.blue.shade200),
+                            // backgroundColor: MaterialStateProperty.all(
+                            //     Colors.blue.shade200),
+                            elevation: MaterialStateProperty.all(4),
+                            // shadowColor:
+                            //     MaterialStateProperty.all(Colors.blue)
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(
+                            "Cencle",
+                          )),
+                      SizedBox(
+                        width: 48,
+                      ),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.blue.shade200),
+                              elevation: MaterialStateProperty.all(4),
+                              shadowColor:
+                                  MaterialStateProperty.all(Colors.blue)),
+                          onPressed: (() {
+                            var nidv = nid.trim();
+                            var l = nidv.split(" ");
+                            String fnid = "";
+                            l.forEach((element) {
+                              fnid = fnid + element;
+                            });
+
+                            // var nidint = int.parse(nidv);
+                            Get.to(ContactForm(
+                              imageFile: imageFile,
+                              name: name,
+                              nid: fnid,
+                            ));
+                          }),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Done"),
+                          )),
+                    ],
                   ),
                 )
               ],
@@ -222,6 +281,8 @@ class _SceenerPageState extends State<SceenerPage> {
   getRecognisedText(XFile image) async {
     final inputImage = InputImage.fromFilePath(image.path);
     final textDetector = GoogleMlKit.vision.textRecognizer();
+    var nidIndex = 7;
+    var nidIndex2 = 7;
     var recognisedText = await textDetector.processImage(inputImage);
     await textDetector.close();
     scannedText = "";
@@ -231,31 +292,34 @@ class _SceenerPageState extends State<SceenerPage> {
         scannedText2 = scannedText + line.text;
       }
     }
-    var totalL = scannedText.split(" ");
+    var totalL = await scannedText2.split(" ");
     var totalLc = scannedText.split("\n");
-    print(totalL);
-    print(totalLc);
+    print("scn $scannedText");
+    print("q $totalL");
+    print("tt $totalLc");
 
-    if (totalL.contains("Name:") ||
+    if (totalL.contains("NO:") ||
         totalLc.contains("No.") ||
         totalL.contains("Birth")) {
-      if (totalL.contains("Name:")) {
-        print("tem");
-
-        var nidL = scannedText.split("ID NO:");
-        var namL = scannedText.split("Name:");
-        // var date = l.sublist(1).join('\n').trim();
-        var nidl = nidL[1].split("\n");
-        var namel = namL[1].split("\n");
-        print("sp list ${nidl}");
-        print("sp lsi ${namel}");
-
+      if (totalL.contains("NO:")) {
         setState(() {
+          print("tem");
+          print("sccc tt $scannedText");
+
+          var nidL = scannedText.split("ID NO:");
+          var namL = scannedText.split("Name:");
+          // var date = l.sublist(1).join('\n').trim();
+          var nidl = nidL[1].split("\n");
+          var namel = namL[1].split("\n");
+          print("sp list ${nidl}");
+          print("sp lsi ${namel}");
+
           nid = nidl[0].trim().toString();
           name = namel[0].trim();
           print("list ${nid[0]}");
           print("prefix ${name[0]}");
         });
+        return;
       } else {
         print("sccc ${scannedText2}");
         var all = scannedText2.split("\n");
@@ -265,116 +329,129 @@ class _SceenerPageState extends State<SceenerPage> {
         final nameIndex = all.indexWhere(
           (element) => (element == "Name"),
         );
-        final nidIndex = all.indexWhere(
-          (element) => (element.toLowerCase() == "nid no."),
-        );
-        final nidIndex2 = all.indexWhere(
-          (element) => (element.toLowerCase() == "nid no."),
-        );
-        final nidIndex3 = all.indexWhere(
-          (element) => (element.toLowerCase() == "nid no"),
-        );
+        setState(() {
+          name = all[nameIndex + 1];
+        });
+        print("namee  ${all[nameIndex + 1]}");
+
+        if (all.contains("NID No.")) {
+          setState(() {
+            nidIndex = all.indexWhere(
+              (element) => (element.toLowerCase() == "nid no."),
+            );
+            if (all.length - 1 > nidIndex) {
+              nid = all[nidIndex + 1];
+            }
+            if (all.length - 1 == nidIndex) {
+              nid = all[nidIndex - 1];
+              print("5  $nid");
+            }
+            if (all.length - 1 <= nidIndex + 2) {
+              nid = all[nidIndex + 2];
+
+              print("6  ${all[nidIndex2 + 1]}");
+            }
+          });
+
+          // if (all.length - 1 < nidIndex - 1) {
+          //   setState(() {
+          //     nid = all[nidIndex];
+          //   });
+          //   print("4  $nid");
+          // }
+
+          // if (all.length - 1 == nidIndex2 - 1) {
+          //   setState(() {
+          //     nid = all[nidIndex2 - 2];
+          //   });
+          //   print("4  ${all[nidIndex2 - 2]}");
+          // }
+          // if (all.length - 1 == nidIndex2) {
+          //   setState(() {
+          //     nid = all[nidIndex2 - 1];
+          //   });
+          //   print("3  ${all[nidIndex2 - 1]}");
+          // }
+          // if (all.length - 1 == nidIndex2 - 2) {
+          //   setState(() {
+          //     nid = all[nidIndex2 + 1];
+          //   });
+          //   print("3  ${all[nidIndex2 + 1]}");
+          // }
+          // setState(() {
+          //   if (all.length - 1 >= nidIndex) {
+          //     nid == all[(nidIndex + 1)];
+          //     print("index-1 ${nid}");
+          //   } else {
+          //     nid == all[(nidIndex - 1)];
+          //     print("index+1 ${nid}");
+          //   }
+
+          //   name = all[nameIndex + 1];
+          //   print("list ${nid[0]}");
+          //   print("prefix ${name[0]}");
+          // });
+        } else {
+          setState(() {
+            nidIndex2 = all.indexWhere(
+              (element) => (element.toLowerCase() == "nid no"),
+            );
+            if (all.length - 1 > nidIndex2) {
+              nid = all[nidIndex2 + 1];
+
+              print("2  $nid");
+            }
+            if (all.length - 1 == nidIndex2) {
+              nid = all[nidIndex2 - 1];
+              print("1  $nid");
+            }
+          });
+
+          // if (all.length - 1 <= nidIndex2 + 2) {
+          //   setState(() {
+          //     nid = all[nidIndex2 + 2];
+          //   });
+          //   print("0  ${all[nidIndex2 + 1]}");
+          // }
+        }
+
         // final nidIndex2 = all.indexWhere(
         //   (element) => (element == "NID NO."),
         // );
-        print(nidIndex);
-        print(nidIndex2);
+        // print(nidIndex);
+        // print(nidIndex2);
 
-        if (all.contains("NID No.")) {
-          if (all.length - 1 == nidIndex2 - 1) {
-            setState(() {
-              nid = all[nidIndex2 - 2];
-            });
-            print("4  ${all[nidIndex2 - 2]}");
-          }
-          if (all.length - 1 == nidIndex2) {
-            setState(() {
-              nid = all[nidIndex2 - 1];
-            });
-            print("3  ${all[nidIndex2 - 1]}");
-          }
-          if (all.length - 1 == nidIndex2 - 2) {
-            setState(() {
-              nid = all[nidIndex2 + 1];
-            });
-            print("3  ${all[nidIndex2 + 1]}");
-          }
-          if (all.contains("NID No")) {
-            if (all.length - 1 == nidIndex3 - 1) {
-              setState(() {
-                nid = all[nidIndex3 - 2];
-              });
-              print("4  ${all[nidIndex3 - 2]}");
-            }
-            if (all.length - 1 == nidIndex3) {
-              setState(() {
-                nid = all[nidIndex3 - 1];
-              });
-              print("3  ${all[nidIndex3 - 1]}");
-            }
-            if (all.length - 1 == nidIndex3 - 2) {
-              setState(() {
-                nid = all[nidIndex3 + 1];
-              });
-              print("3  ${all[nidIndex3 + 1]}");
-            }
-          }
-          if (all.contains("NID NO.")) {
-            if (all.length - 1 == nidIndex2 - 1) {
-              setState(() {
-                nid = all[nidIndex2 - 2];
-              });
-              print("4  ${all[nidIndex2 - 2]}");
-            }
-            if (all.length - 1 == nidIndex2) {
-              setState(() {
-                nid = all[nidIndex2 - 1];
-              });
-              print("3  ${all[nidIndex2 - 1]}");
-            }
-            if (all.length - 1 == nidIndex2 - 2) {
-              setState(() {
-                nid = all[nidIndex2 + 1];
-              });
-              print("3  ${all[nidIndex2 + 1]}");
-            }
-          }
-        } else {
-          var nidl = scannedText2.split("NID No.");
-          final nidIndex = nidl.indexWhere(
-            (element) => (element == "NID No."),
-          );
-          if (nidIndex == nidl.length - 1) {
-            setState(() {
-              nid = nidl[nidIndex - 1];
-            });
-            print("2${nidl[nidIndex - 1]}");
-          }
-          if (nidIndex - 1 == nidl.length - 1) {
-            setState(() {
-              nid = nidl[nidIndex + 1];
-            });
-            print("1${nidl[nidIndex + 1]}");
-          }
-        }
+        // if (all.contains("NID No.")) {
 
-        print("namemm  ${all[nameIndex + 1]}");
-        print("nid  ${all[(all.length - 3)]}");
-        print(all);
-        var nidL = scannedText.split("ID NO.");
-        var namL = scannedText.split("Name");
-        // var date = l.sublist(1).join('\n').trim();
-        var nidl = nidL[1].split("\n");
-        var namel = namL[1].split("\n");
-        print("sp list ${nidl}");
-        print("sp lsi ${namel}");
+        // } else {
+        //   var nidl = scannedText2.split("NID No.");
+        //   final nidIndex = nidl.indexWhere(
+        //     (element) => (element == "NID No."),
+        //   );
+        //   if (nidIndex == nidl.length - 1) {
+        //     setState(() {
+        //       nid = nidl[nidIndex - 1];
+        //     });
+        //     print("2${nidl[nidIndex - 1]}");
+        //   }
+        //   if (nidIndex - 1 == nidl.length - 1) {
+        //     setState(() {
+        //       nid = nidl[nidIndex + 1];
+        //     });
+        //     print("1${nidl[nidIndex + 1]}");
+        //   }
+        // }
 
-        setState(() {
-          nid == all[(all.length - 3)];
-          name = all[nameIndex + 1];
-          print("list ${nid[0]}");
-          print("prefix ${name[0]}");
-        });
+        // print("nid  ${all[(all.length - 3)]}");
+        // print(all);
+        // var nidL = scannedText.split("ID NO.");
+        // var namL = scannedText.split("Name");
+        // // var date = l.sublist(1).join('\n').trim();
+        // var nidl = nidL[1].split("\n");
+        // var namel = namL[1].split("\n");
+        // print("sp list ${nidl}");
+        // print("sp lsi ${namel}");
+
       }
     } else {
       print("totalL id none");

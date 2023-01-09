@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
   GetStorage box = GetStorage();
   final controller = Get.put(HomePageController());
   Future<void> _pullRefresh() async {
-    controller.homePagaData;
+    controller.homePagaData();
   }
 
   @override
@@ -104,9 +104,10 @@ class HomePage extends StatelessWidget {
                   ))
             ],
           ),
-          body: SingleChildScrollView(
-            child: RefreshIndicator(
-              onRefresh: _pullRefresh,
+          body: RefreshIndicator(
+            onRefresh: _pullRefresh,
+            child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
                   // Center(
@@ -189,7 +190,7 @@ class HomePage extends StatelessWidget {
                         Expanded(
                           child: GestureDetector(
                             onTap: (() {
-                              // Get.to(SceenerPage());
+                              Get.to(SearchPage());
                             }),
                             child: StatisticWidget(
                                 height: 150,

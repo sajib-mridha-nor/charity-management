@@ -32,6 +32,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void dispose() {
     controller.dispose();
+    // controller.pagingController.dispose();
+    // controller.pagingController.refresh();
     // TODO: implement dispose
     super.dispose();
   }
@@ -44,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     searchBar = SearchBar(
-        inBar: false,
+        inBar: true,
         buildDefaultAppBar: buildAppBar,
         setState: setState,
         onSubmitted: onSubmitted,
