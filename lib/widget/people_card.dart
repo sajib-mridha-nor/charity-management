@@ -31,7 +31,7 @@ class PeopleCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             side: BorderSide(
               color: Colors.white,
-              width: 1,
+              width: 0,
             ),
           ),
           elevation: 1,

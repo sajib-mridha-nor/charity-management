@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:donation_tracker/pages/donation_form_page.dart';
 import 'package:donation_tracker/pages/home_page.dart';
+import 'package:donation_tracker/pages/model/contact_response.dart';
 import 'package:donation_tracker/pages/model/home_page_response.dart';
 import 'package:donation_tracker/pages/model/union_model.dart';
 import 'package:donation_tracker/utils/constants.dart';
@@ -12,39 +13,58 @@ import 'package:get_storage/get_storage.dart';
 import 'package:path/path.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class HomePageController extends GetxController with StateMixin<HomeData> {
+class UnionController extends GetxController with StateMixin<List<Union>> {
   final dioClient = DioClient(BASE_URL, Dio());
 
   RxBool isLoading = false.obs;
-  HomeData? homeData;
-  List<Union?>? unionData;
+  RxString unionId = "".obs;
+  Union? UnionData;
+  List<Union>? unionData;
+  List<Contact>? unionList;
 
   @override
   void onInit() {
-    homePagaData();
+    FatchUnionData();
 
     super.onInit();
   }
 
-  homePagaData() async {
+  FatchUnionData() async {
     try {
       change(null, status: RxStatus.loading());
 
-      final res = await dioClient.get(
-        "total",
-      );
       final unionRes = await dioClient.get(
         "union",
       );
 
       unionData = UnionModel.fromJson(unionRes).data;
-      homeData = HomeData.fromJson(res);
 
       print("union ${unionRes}");
-      print("ff ${res}");
-      change(homeData, status: RxStatus.success());
+
+      change(unionData, status: RxStatus.success());
     } catch (e) {
-      change(homeData, status: RxStatus.error());
+      change(null, status: RxStatus.error());
+      isLoading(false);
+      var error = NetworkExceptions.getDioException(e);
+      var message = NetworkExceptions.getErrorMessage(error);
+    }
+  }
+
+  FatchuUionContactData() async {
+    print("uniondd $unionId");
+    try {
+      isLoading(true);
+
+      final unionRes = await dioClient.get(
+        "contacts/unionwise/$unionId",
+      );
+
+      unionList = ContactResponse.fromJson(unionRes).contact;
+
+      print("contacts/unionwise/$unionId");
+
+      isLoading(false);
+    } catch (e) {
       isLoading(false);
       var error = NetworkExceptions.getDioException(e);
       var message = NetworkExceptions.getErrorMessage(error);

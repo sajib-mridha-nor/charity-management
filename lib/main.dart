@@ -1,4 +1,4 @@
-import 'package:donation_tracker/feature/theme/dlc_theme.dart';
+import 'package:donation_tracker/feature/theme/donation_them.dart';
 import 'package:donation_tracker/pages/auth/login_page.dart';
 import 'package:donation_tracker/pages/home_page.dart';
 import 'package:donation_tracker/utils/path_provider.dart';

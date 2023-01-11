@@ -46,7 +46,7 @@ class _DonationFormPageState extends State<DonationFormPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue.withOpacity(.5),
+        backgroundColor: Color.fromARGB(255, 147, 192, 244),
         centerTitle: true,
         title: Text(
           "Charity  Form",

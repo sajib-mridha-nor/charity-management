@@ -10,7 +10,7 @@ import 'package:path/path.dart';
 import 'package:mime/mime.dart';
 
 class CustomFilePicker extends StatefulWidget {
-  final XFile? initialize;
+  // final XFile? initialize;
   final String? label;
   final TextStyle? labelStyle;
   final String hint;
@@ -24,7 +24,7 @@ class CustomFilePicker extends StatefulWidget {
   const CustomFilePicker(
       {Key? key,
       this.label,
-      this.initialize,
+      // this.initialize,
       required this.hint,
       this.error,
       this.require,
@@ -78,7 +78,7 @@ class _CustomFilePickerState extends State<CustomFilePicker> {
   }
 
   void _pickFileMultiple() async {
-    _inputController.text = widget.initialize!.path;
+    // _inputController.text = widget.initialize!.path;
     pickedFile = await ImagePicker()
         .pickMultiImage(maxHeight: 800, maxWidth: 800, imageQuality: 40);
     // source: ImageSource
@@ -160,11 +160,11 @@ class _CustomFilePickerState extends State<CustomFilePicker> {
   FocusNode myFocusNode = FocusNode();
   @override
   void initState() {
-    widget.initialize == null
-        ? null
-        : _inputController.text = basename(widget.initialize!.path);
+    // widget.initialize == null
+    //     ? null
+    //     : _inputController.text = basename(widget.initialize!.path);
 
-    widget.initialize == null ? null : image.add(File(widget.initialize!.path));
+    // widget.initialize == null ? null : image.add(File(widget.initialize!.path));
     super.initState();
     myFocusNode = FocusNode();
   }

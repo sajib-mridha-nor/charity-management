@@ -1,6 +1,8 @@
+import 'package:donation_tracker/pages/contact/allcontact_get_controller.dart';
 import 'package:donation_tracker/pages/donation_form_page.dart';
 import 'package:donation_tracker/pages/model/contact_response.dart';
 import 'package:donation_tracker/pages/people_details_page.dart';
+import 'package:donation_tracker/pages/search/search_page.dart';
 import 'package:donation_tracker/pages/search/search_page_controller.dart';
 import 'package:donation_tracker/widget/people_card.dart';
 import 'package:flutter/material.dart';
@@ -8,26 +10,17 @@ import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+class AllContactShowPage extends StatefulWidget {
+  const AllContactShowPage({Key? key}) : super(key: key);
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  State<AllContactShowPage> createState() => _AllContactShowPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _AllContactShowPageState extends State<AllContactShowPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  late SearchBar searchBar;
-  final controller = Get.put(SearchPageController());
-
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-        title: const Text("Search"),
-        backgroundColor: Color.fromARGB(255, 147, 192, 244),
-        actions: [
-          searchBar.getSearchAction(context),
-        ]);
-  }
+  // late SearchBar searchBar;
+  final controller = Get.put(AllcontractGetController());
 
   @override
   void dispose() {
@@ -45,22 +38,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
-    searchBar = SearchBar(
-        inBar: true,
-        buildDefaultAppBar: buildAppBar,
-        setState: setState,
-        onSubmitted: onSubmitted,
-        clearOnSubmit: false,
-        closeOnSubmit: false,
-        onCleared: () {
-          debugPrint("Search bar has been cleared");
-        },
-        onClosed: () {
-          debugPrint("Search bar has been closed");
-        });
-    Future.delayed(const Duration(milliseconds: 500), () {
-      searchBar.beginSearch(context);
-    });
     super.initState();
   }
 
@@ -72,7 +49,18 @@ class _SearchPageState extends State<SearchPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: searchBar.build(context),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 147, 192, 244),
+        actions: [
+          IconButton(
+              onPressed: (() {
+                Get.to(SearchPage());
+              }),
+              icon: CircleAvatar(
+                  backgroundColor: Colors.grey.withOpacity(.2),
+                  child: Icon(Icons.search)))
+        ],
+      ),
       body: Padding(
         padding: EdgeInsets.only(right: 8, left: 8, top: 8),
         child: PagedListView<int, Contact>(

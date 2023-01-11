@@ -22,6 +22,7 @@ class DonationTrackerTheme {
     //     ));
     return ThemeData(
       useMaterial3: true,
+      fontFamily: "NotoSerifToto",
       appBarTheme: AppBarTheme(shadowColor: Colors.black26, elevation: 8),
       tabBarTheme: const TabBarTheme(
           labelColor: Colors.white, unselectedLabelColor: Colors.black),

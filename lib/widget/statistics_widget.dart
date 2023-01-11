@@ -35,6 +35,109 @@ class Totals extends StatelessWidget {
     required this.width,
     required this.icon,
     this.offeset,
+    this.imgH,
+    this.imgW,
+    required this.title,
+    required this.caption,
+  }) : super(key: key);
+
+  final double? height;
+  final double? width;
+  final double? imgH;
+  final double? imgW;
+  final String icon;
+  final String title;
+  final Offset? offeset;
+  final String caption;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height ?? 200,
+      width: width ?? 300,
+      padding: EdgeInsets.symmetric(vertical: 0),
+      decoration: BoxDecoration(
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.white,
+        //     spreadRadius: offeset == null ? 1 : 0,
+        //     blurRadius: offeset == null ? 1 : 0,
+        //     offset: offeset ?? Offset(1, 2), // changes position of shadow
+        //   )
+        // ],
+        gradient: RadialGradient(stops: [
+          .2,
+          .9
+        ], colors: [
+          Color.fromARGB(255, 115, 183, 239),
+          Colors.white,
+        ]),
+        color: HexColor("#E8EFF2").withOpacity(.8),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: 4,
+          ),
+          Image.asset(
+            icon,
+            height: imgH ?? 36,
+            width: imgW ?? 36,
+            fit: BoxFit.cover,
+          ),
+          // CircleAvatar(
+          //   backgroundColor: Colors.transparent,
+          //   radius: 20,
+          //   backgroundImage: AssetImage(icon),
+          // ),
+          // Image.asset("assets/donation.png", height: 45, width: 45),
+          // ,
+          SizedBox(
+            height: 4,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                      // fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Center(
+                child: Text(
+                  caption,
+                  style: TextStyle(
+                      // fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class StatisticWidget2 extends StatelessWidget {
+  const StatisticWidget2({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.icon,
+    this.offeset,
     required this.title,
     required this.caption,
   }) : super(key: key);
@@ -55,20 +158,16 @@ class Totals extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.white.withOpacity(.5),
+            color: Colors.grey,
             spreadRadius: offeset == null ? 1 : 0,
             blurRadius: offeset == null ? 1 : 0,
-            offset: offeset ?? Offset(2, 3), // changes position of shadow
+            offset: offeset ?? Offset(1, 2), // changes position of shadow
           )
         ],
-        gradient: RadialGradient(stops: [
-          .2,
-          .9
-        ], colors: [
-          Color.fromARGB(255, 115, 183, 239),
-          Colors.white,
-        ]),
-        color: HexColor("#E8EFF2").withOpacity(.5),
+        gradient: LinearGradient(
+            stops: [.2, .9],
+            colors: [HexColor("#addde3"), HexColor("#adcbe3")]),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
