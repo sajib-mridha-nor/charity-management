@@ -1,8 +1,12 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
+import 'package:donation_tracker/pages/contact/allcontact.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:donation_tracker/pages/donation_form_page.dart';
+import 'package:donation_tracker/pages/donation/donation_form_page.dart';
 import 'package:donation_tracker/pages/home_page.dart';
 import 'package:donation_tracker/utils/constants.dart';
 import 'package:donation_tracker/utils/network/dio_client.dart';
@@ -24,35 +28,9 @@ class ContactController extends GetxController {
   Map<String, String> map = {};
   RxBool isLoading = false.obs;
 
-  // final PagingController<int, Content> pagingController =
-  // PagingController(firstPageKey: 1);
-
   @override
   void onInit() {
-    // pagingController.addPageRequestListener((pageKey) {
-    //   _fetchPage(pageKey);
-    // });
-
     super.onInit();
-  }
-
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      final res = await dioClient.get("contacts");
-      // final res = await dioClient.get(
-      //     "contents?limit=$_pageSize&page=$pageKey&query=${query.value}");
-      // final pagination = ContentPaginationResponse.fromJson(res);
-      // if (pagination.nextPageUrl == null) {
-      //   pagingController.appendLastPage(pagination.data ?? []);
-      // } else {
-      //   final nextPageKey = pageKey + 1;
-      //   pagingController.appendPage(pagination.data ?? [], nextPageKey);
-      // }
-    } catch (e) {
-      var error = NetworkExceptions.getDioException(e);
-      var message = NetworkExceptions.getErrorMessage(error);
-      // pagingController.error = message;
-    }
   }
 
   postContacts() async {
@@ -79,11 +57,31 @@ class ContactController extends GetxController {
       request.files.add(multipartFile2);
       var response = await request.send();
       final res = await http.Response.fromStream(response);
+      final resdata = res.body;
+      ;
+      if (res.statusCode == 200) {
+        Get.snackbar(
+          "Successful",
+          "Submitted Successful, see details list",
+          backgroundColor: Colors.green.withOpacity(0.5),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+
+        // print("ff $res");
+        Get.off(AllContactShowPage());
+      } else {
+        Get.snackbar(
+          "This people already exists",
+          "Add new phone number and NID/Birth certificate no.",
+          backgroundColor: Colors.red.withOpacity(0.5),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
       print(res.body);
 
       // map["nid_image"] =
       //     await http.MultipartFile.fromBytes(image.bytes!, {filename: basename(image),});
-      print("nid_image v ");
+
       // final formData = dio.FormData.fromMap(map);
 
       // final res = await http.post(url, headers: {
@@ -91,9 +89,7 @@ class ContactController extends GetxController {
       //   'Accept': 'application/json',
       //   'Authorization': 'Bearer $token',
       // });
-      print('Token : ${token}');
 
-      print("formData v ");
       // final res = await dioClient.post(
       //   "contacts",
       //   data: formData,
@@ -105,23 +101,40 @@ class ContactController extends GetxController {
       //     data: formData,
       //     options: Options(
       //         headers: {"authorization": box.read("token").toString()}));
-      print("dioClient v ");
+
+      isLoading(false);
+    } on SocketException {
+      isLoading(false);
+      throw Get.snackbar(
+        "Fail!!",
+        "Plase check your connection",
+        backgroundColor: Colors.red.withOpacity(0.5),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } on TimeoutException catch (e) {
+      isLoading(false);
       Get.snackbar(
-        "Successful",
-        "Submitted Successful, see details list",
+        "Fail!!",
+        "Try againg, Time out!",
+        backgroundColor: Colors.red.withOpacity(0.5),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } on Error catch (e) {
+      isLoading(false);
+      print('Error: $e');
+    } catch (e) {
+      var error = NetworkExceptions.getDioException(e);
+      var message = NetworkExceptions.getErrorMessage(error);
+      print("catch v $e");
+      Get.snackbar(
+        "Sorry!",
+        "$e",
         backgroundColor: Colors.green.withOpacity(0.5),
         snackPosition: SnackPosition.BOTTOM,
       );
 
-      // print("ff $res");
-      Get.off(HomePage());
       isLoading(false);
-    } catch (e) {
-      print("catch v $e");
 
-      isLoading(false);
-      var error = NetworkExceptions.getDioException(e);
-      var message = NetworkExceptions.getErrorMessage(error);
       print(message);
     }
   }

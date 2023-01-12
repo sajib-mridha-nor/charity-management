@@ -1,6 +1,6 @@
-import 'package:donation_tracker/pages/donation_form_page.dart';
+import 'package:donation_tracker/pages/donation/donation_form_page.dart';
 import 'package:donation_tracker/pages/model/contact_response.dart';
-import 'package:donation_tracker/pages/people_details_page.dart';
+import 'package:donation_tracker/pages/donate_history_page.dart';
 import 'package:donation_tracker/pages/search/search_page_controller.dart';
 import 'package:donation_tracker/widget/people_card.dart';
 import 'package:flutter/material.dart';

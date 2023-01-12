@@ -61,7 +61,7 @@ class _SceenerPageState extends State<SceenerPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Text Recognition example"),
+        title: const Text("NID Reader"),
       ),
       body: Center(
           child: SingleChildScrollView(

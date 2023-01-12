@@ -164,9 +164,9 @@ class StatisticWidget2 extends StatelessWidget {
             offset: offeset ?? Offset(1, 2), // changes position of shadow
           )
         ],
-        gradient: LinearGradient(
-            stops: [.2, .9],
-            colors: [HexColor("#addde3"), HexColor("#adcbe3")]),
+        gradient: LinearGradient(stops: [.2, .9],
+            // colors: [HexColor("#addde3"), HexColor("#adcbe3")]),
+            colors: [Colors.white60, HexColor("#adcbe3")]),
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),

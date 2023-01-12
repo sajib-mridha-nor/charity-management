@@ -1,4 +1,4 @@
-import 'package:donation_tracker/pages/donation_controller.dart';
+import 'package:donation_tracker/pages/donation/donation_controller.dart';
 import 'package:donation_tracker/widget/custom_button.dart';
 import 'package:donation_tracker/widget/custom_date_picker.dart';
 import 'package:donation_tracker/widget/custom_dropdown.dart';
@@ -88,7 +88,8 @@ class _DonationFormPageState extends State<DonationFormPage> {
                     helperTxt: "Total amount ৳",
                     hint: 'Total amount ৳',
                     onChange: (t) {
-                      controller.map["total_amount"] = t.toString();
+                      print(t);
+                      controller.map["amount"] = t.toString();
                     },
                   ),
                   SizedBox(
@@ -147,6 +148,7 @@ class _DonationFormPageState extends State<DonationFormPage> {
                       onClick: () {
                         if (_formKey.currentState!.validate()) {
                           controller.postDonation();
+                          print("ful map ${controller.map}");
                         } else {}
                         print(controller.images);
                       },

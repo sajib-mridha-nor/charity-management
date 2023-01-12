@@ -3,10 +3,10 @@ import 'package:donation_tracker/pages/contact/contact_form.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:donation_tracker/pages/auth/registration_page.dart';
-import 'package:donation_tracker/pages/details_page_controller.dart';
-import 'package:donation_tracker/pages/donation_form_page.dart';
+import 'package:donation_tracker/pages/donate_history_page_controller.dart';
+import 'package:donation_tracker/pages/donation/donation_form_page.dart';
 import 'package:donation_tracker/pages/homepage_controller.dart';
-import 'package:donation_tracker/pages/people_details_page.dart';
+import 'package:donation_tracker/pages/donate_history_page.dart';
 import 'package:donation_tracker/pages/auth/login_page.dart';
 import 'package:donation_tracker/pages/sceene_reader.dart/sceen_reader.dart';
 import 'package:donation_tracker/pages/search/search_page.dart';

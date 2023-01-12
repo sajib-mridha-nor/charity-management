@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:donation_tracker/pages/contact/contact_adde_controller.dart';
 
-import 'package:donation_tracker/pages/donation_form_page.dart';
+import 'package:donation_tracker/pages/donation/donation_form_page.dart';
 import 'package:donation_tracker/pages/sceene_reader.dart/camera.dart';
 import 'package:donation_tracker/pages/sceene_reader.dart/sceen_reader.dart';
 import 'package:donation_tracker/widget/custom_button.dart';
@@ -403,7 +403,7 @@ class _ContactFormState extends State<ContactForm> {
                       hint: "Selecte NID Photo",
                       onChange: (file) {
                         // file = File(widget.imageFile.path);
-                        controller.image = file;
+                        controller.image = file.path;
                         print("onchanggggg ${file}");
                       }),
 
@@ -445,11 +445,11 @@ class _ContactFormState extends State<ContactForm> {
                     () => CustomButton(
                       loading: controller.isLoading.value,
                       onClick: () {
-                        // if (_formKey.currentState!.validate()) {
-                        //   controller.postContacts();
-                        // } else {
-                        //   print("object");
-                        // }
+                        if (_formKey.currentState!.validate()) {
+                          controller.postContacts();
+                        } else {
+                          print("object");
+                        }
                         // var file = File(widget.imageFile!.path);
                         // controller.image = file;
 

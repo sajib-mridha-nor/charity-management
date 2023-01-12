@@ -22,12 +22,12 @@ class DetailsPageController extends GetxController
   @override
   void onInit() {
     print("jj $id");
-    GetDonationLsit();
+    getDonationLsit();
 
     super.onInit();
   }
 
-  GetDonationLsit() async {
+  getDonationLsit() async {
     var token = GetStorage().read("token");
     print("ff ${GetStorage().read("token")}");
     try {
@@ -66,6 +66,8 @@ class DetailsPageController extends GetxController
         // options:
         //     Options(headers: {"authorization": box.read("token").toString()}),
       );
+      print('ress : ${res}');
+
       donatio = DonationDetailsRes.fromJson(res).data;
 
       // final res = await Dio().post("https://ezze.dev/donation/api/v1/contacts",

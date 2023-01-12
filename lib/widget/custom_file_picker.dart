@@ -447,7 +447,7 @@ class _CustomFilePicker2State extends State<CustomFilePicker2> {
           ElevatedButton.icon(
               onPressed: (() {
                 Get.back();
-                _pickFileMultiple();
+                _pickFile();
                 print("object");
               }),
               icon: const Icon(CupertinoIcons.photo_fill),

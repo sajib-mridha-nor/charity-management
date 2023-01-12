@@ -1,7 +1,7 @@
 import 'package:donation_tracker/pages/contact/allcontact_get_controller.dart';
-import 'package:donation_tracker/pages/donation_form_page.dart';
+import 'package:donation_tracker/pages/donation/donation_form_page.dart';
 import 'package:donation_tracker/pages/model/contact_response.dart';
-import 'package:donation_tracker/pages/people_details_page.dart';
+import 'package:donation_tracker/pages/donate_history_page.dart';
 import 'package:donation_tracker/pages/search/search_page.dart';
 import 'package:donation_tracker/pages/search/search_page_controller.dart';
 import 'package:donation_tracker/pages/search/union_controlller.dart';
@@ -37,6 +37,10 @@ class _UnionContactShowPageState extends State<UnionContactShowPage> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+          title: Text(
+            "Union people list",
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: Color.fromARGB(255, 147, 192, 244),
           actions: [
             IconButton(
