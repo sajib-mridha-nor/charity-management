@@ -41,15 +41,14 @@ class _UnionContactShowPageState extends State<UnionContactShowPage> {
             "Union people list",
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Color.fromARGB(255, 147, 192, 244),
+          centerTitle: true,
+          // backgroundColor: Color.fromARGB(255, 147, 192, 244),
           actions: [
             IconButton(
                 onPressed: (() {
                   Get.to(SearchPage());
                 }),
-                icon: CircleAvatar(
-                    backgroundColor: Colors.grey.withOpacity(.2),
-                    child: Icon(Icons.search)))
+                icon: Icon(Icons.search))
           ],
         ),
         body: Obx(

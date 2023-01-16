@@ -1,6 +1,8 @@
+import 'package:donation_tracker/feature/theme/color_schemes.dart';
 import 'package:donation_tracker/feature/theme/donation_them.dart';
 import 'package:donation_tracker/pages/auth/login_page.dart';
 import 'package:donation_tracker/pages/home_page.dart';
+import 'package:donation_tracker/utils/hexcolor.dart';
 import 'package:donation_tracker/utils/path_provider.dart';
 
 import 'package:flutter/material.dart';
@@ -36,7 +38,11 @@ class _MyAppState extends State<MyApp> {
     // AppPathProvider.initPath();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: DonationTrackerTheme.lightTheme(),
+      theme: new ThemeData(
+          fontFamily: "Raleway",
+          primarySwatch: generateMaterialColorFromColor(Color(0xFF1D3EB1)),
+          primaryTextTheme:
+              TextTheme(headline6: TextStyle(color: Colors.white))),
       home: box.read("token") == null ? LoginPage() : HomePage(),
     );
   }

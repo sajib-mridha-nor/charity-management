@@ -156,17 +156,17 @@ class StatisticWidget2 extends StatelessWidget {
       width: width ?? 300,
       padding: EdgeInsets.symmetric(vertical: 0),
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            spreadRadius: offeset == null ? 1 : 0,
-            blurRadius: offeset == null ? 1 : 0,
-            offset: offeset ?? Offset(1, 2), // changes position of shadow
-          )
-        ],
-        gradient: LinearGradient(stops: [.2, .9],
-            // colors: [HexColor("#addde3"), HexColor("#adcbe3")]),
-            colors: [Colors.white60, HexColor("#adcbe3")]),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey,
+        //     spreadRadius: offeset == null ? 1 : 0,
+        //     blurRadius: offeset == null ? 1 : 0,
+        //     offset: offeset ?? Offset(1, 2), // changes position of shadow
+        //   )
+        // ],
+        // gradient: LinearGradient(stops: [.2, .9],
+        //     // colors: [HexColor("#addde3"), HexColor("#adcbe3")]),
+        //     colors: [Colors.white60, HexColor("#adcbe3")]),
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),

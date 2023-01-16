@@ -42,142 +42,186 @@ class PeopleDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-        // backgroundColor: HexColor("#FAF6F1"),
+        backgroundColor: HexColor("#f2f2f2"),
         // backgroundColor: Color.fromARGB(219, 201, 224, 244),
         appBar: AppBar(
-          leading: IconButton(
-              onPressed: (() {
-                Get.off(() => HomePage());
-              }),
-              icon: Icon(
-                Icons.arrow_back,
-              )),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.offAll(HomePage());
+                },
+                icon: Icon(Icons.home))
+          ],
           title: Text(
             "Details page",
           ),
           centerTitle: true,
-          backgroundColor: Colors.blue.withOpacity(.5),
+          // backgroundColor: Colors.blue.withOpacity(.5),
         ),
         body: controller.obx((state) {
           return RefreshIndicator(
             onRefresh: _onRefresh,
             child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
               child: Column(children: [
                 Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          flex: 3,
-                          child: Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: image == null
-                                  ? CircleAvatar(
-                                      radius: 40,
-                                      backgroundImage:
-                                          AssetImage("assets/pngwing.com.png"))
-                                  : CircleAvatar(
-                                      radius: 40,
-                                      child: CircleAvatar(
-                                          radius: 39,
-                                          backgroundImage: NetworkImage(
-                                              "https://ezze.dev/donation/" +
-                                                  image.toString())),
-                                    ))),
-                      Expanded(
-                        flex: 1,
-                        child: SizedBox(
-                          width: 12,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 7,
+                  padding: const EdgeInsets.all(0.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(0),
+                          color: Colors.white),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Name: ${name ?? " "}",
-                                style: textTheme.bodyText2
-                                    ?.copyWith(color: Colors.black)),
-                            Text("Gender:  ${gender ?? ""}",
-                                style: textTheme.bodyText2
-                                    ?.copyWith(color: Colors.black)),
-                            Text("NID:  ${nid ?? ""}",
-                                style: textTheme.bodyText2
-                                    ?.copyWith(color: Colors.black)),
-                            Text("Phone:  ${phone ?? ""}",
-                                style: textTheme.bodyText2
-                                    ?.copyWith(color: Colors.black)),
-                            Text("Union:  ${union ?? ""}",
-                                style: textTheme.bodyText2
-                                    ?.copyWith(color: Colors.black)),
+                            Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: image == null
+                                    ? CircleAvatar(
+                                        radius: 40,
+                                        backgroundImage: AssetImage(
+                                            "assets/pngwing.com.png"))
+                                    : CircleAvatar(
+                                        radius: 40,
+                                        backgroundImage: NetworkImage(
+                                            "https://ezze.dev/donation/" +
+                                                image.toString()))),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(name ?? "Abul Fazal Mia",
+                                    style: textTheme.titleMedium
+                                        ?.copyWith(color: Colors.black)),
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text("NID: ",
+                                            style: textTheme.bodyMedium
+                                                ?.copyWith(
+                                                    color: Colors.black)),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text("Phone:",
+                                            style: textTheme.bodyMedium
+                                                ?.copyWith(
+                                                    color: Colors.black)),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text("Gender:",
+                                            textAlign: TextAlign.end,
+                                            style:
+                                                textTheme.bodyMedium?.copyWith(
+                                              color: Colors.black,
+                                            )),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text("Union: ",
+                                            style: textTheme.bodyMedium
+                                                ?.copyWith()),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 32,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text("${(nid ?? "1234567890")}",
+                                            style: textTheme.bodyMedium
+                                                ?.copyWith(
+                                                    color: Colors.black)),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text("${phone ?? "017xxxxxxx"}",
+                                            style: textTheme.bodyMedium
+                                                ?.copyWith(
+                                                    color: Colors.black)),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text("${gender ?? ""}",
+                                            style: textTheme.bodyMedium
+                                                ?.copyWith(
+                                                    color: Colors.black)),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text("${union ?? "Firuzpur"}",
+                                            style: textTheme.bodyMedium
+                                                ?.copyWith()),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            SizedBox(
+                                // height: 20,
+                                // width: 80,
+                                child: ElevatedButton(
+                                    onPressed: (() {
+                                      Get.to(DonationFormPage(name: name),
+                                          arguments: {"c_id": id});
+                                    }),
+                                    child: Text("Donate")))
                           ],
                         ),
-                      ),
-                      // Expanded(
-                      //   flex: 1,
-                      //   child: SizedBox(
-                      //     width: 26,
+                      )),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Colors.grey.withOpacity(0.5),
+                      //     spreadRadius: 1,
+                      //     blurRadius: 1,
+                      //     offset: Offset(0, 2), // changes position of shadow
                       //   ),
-                      // ),
-                    ],
-                  ),
-                ),
-                // SizedBox(
-                //   height: 500,
-                //   width: 300,
-                //   child: Timeline.tileBuilder(
-                //     builder: TimelineTileBuilder.fromStyle(
-                //       indicatorStyle: IndicatorStyle.outlined,
-                //       itemExtent: 200,
-                //       contentsAlign: ContentsAlign.basic,
-                //       contentsBuilder: (context, index) => Padding(
-                //         padding: const EdgeInsets.all(24.0),
-                //         child: Text('${state?[1].donationDate}'),
-                //       ),
-                //       itemCount: 2,
-                //     ),
-                //   ),
-                // ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset:
-                                    Offset(0, 2), // changes position of shadow
-                              ),
-                            ],
-                            color: Colors.white70,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Text("Total donation:${state?.length}",
-                              style: textTheme.bodyText2
-                                  ?.copyWith(color: Colors.blue.shade900)),
-                        ),
+                      // ],
+                      color: HexColor("#D6DFFF"),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Total donation:",
+                              style: textTheme.titleMedium?.copyWith()),
+                          Text("${state?.length}",
+                              style: textTheme.titleMedium?.copyWith()),
+                        ],
                       ),
-                      SizedBox(
-                          // height: 20,
-                          // width: 80,
-                          child: ElevatedButton(
-                              onPressed: (() {
-                                Get.to(DonationFormPage(name: name),
-                                    arguments: {"c_id": id});
-                              }),
-                              child: Text("Donate"))),
-                    ],
+                    ),
                   ),
                 ),
-                // SizedBox(
-                //   height: 8,
-                // ),
+                SizedBox(
+                  height: 16,
+                ),
                 // Divider(
                 //   height: 2,
                 //   thickness: 1,
@@ -193,13 +237,26 @@ class PeopleDetailsPage extends StatelessWidget {
                         children: List.generate(state.length, (index) {
                           final item = state[index];
 
-                          return DonationCard(
-                            amount: item.amount.toString(),
-                            date: item.donationDate.toString(),
-                            details: item.description.toString(),
-                            image: item.image,
-                            name: item.itemName.toString(),
-                            quantity: item.quantity.toString(),
+                          return Column(
+                            children: [
+                              DonationCard(
+                                amount: item.amount.toString(),
+                                date: item.donationDate.toString(),
+                                details: item.description.toString(),
+                                image: item.image,
+                                name: item.itemName.toString(),
+                                quantity: item.quantity.toString(),
+                              ),
+                              index == state.length - 1
+                                  ? Container()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Divider(
+                                        thickness: 1,
+                                        color: Colors.blue,
+                                      ),
+                                    )
+                            ],
                           );
                         }),
                       )
@@ -216,10 +273,13 @@ class DonationCard extends StatelessWidget {
   final String? amount;
   final String? quantity;
   final String? details;
+  final int? l;
   final List<String>? image;
+
   const DonationCard(
       {Key? key,
       this.amount,
+      this.l,
       this.date,
       this.details,
       this.image,
@@ -234,105 +294,138 @@ class DonationCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
         child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                HexColor("#83EAF1").withOpacity(.1),
-                HexColor("#63A4FF").withOpacity(.1),
-              ])),
+              // gradient: LinearGradient(
+              //     begin: Alignment.topCenter,
+              //     end: Alignment.bottomCenter,
+              //     colors: [
+              //   HexColor("#83EAF1").withOpacity(.1),
+              //   HexColor("#63A4FF").withOpacity(.1),
+              // ])
+
+              ),
           child: Row(
             children: [
-              Container(
-                height: 350,
-                child: TimelineNode(
-                  indicator: RotatedBox(
-                    quarterTurns: -1,
-                    child: Text(date.toString()),
-                  ),
-                  startConnector: DashedLineConnector(
-                    // gapColor: Colors.amber,
-                    color: Colors.blue.shade200, dash: 1,
-                  ),
-                  endConnector: SolidLineConnector(),
-                ),
-              ),
               SizedBox(
-                height: 356,
-                width: MediaQuery.of(context).size.width - 46,
+                // height: 356,
+                width: MediaQuery.of(context).size.width - 16,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Divider(
-                      //   thickness: 1,
-                      // ),
-                      // Container(
-                      //   width: double.infinity,
-                      //   // color: Color.fromARGB(255, 179, 217, 235),
-                      //   child: Center(
-                      //     child: Text(
-                      //       date.toString(),
-                      //       style: textTheme.bodyLarge
-                      //           ?.copyWith(color: Colors.black),
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 2,
-                      // ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              "Item: $name",
-                              style: textTheme.bodyText2,
-                            ),
-                            Text(
-                              "Amount: ${amount == null ? 0 : amount}",
-                              style: textTheme.bodyText2,
-                            ),
-                            // SizedBox(
-                            //   height: 2,
-                            // ),
-                            Text(
-                              "Quantity: ${quantity == null ? 0 : quantity}",
-                              style: textTheme.bodyText2,
+                            SizedBox(
+                              height: 8,
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Details: ",
-                                  style: textTheme.bodyText2,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Date",
+                                      style: textTheme.bodyText2
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "Item",
+                                      style: textTheme.bodyText2
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "Amount",
+                                      style: textTheme.bodyText2
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "Quantity",
+                                      style: textTheme.bodyText2
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
-                                  width: 8,
+                                  width: 32,
                                 ),
-                                Container(
-                                  height: 60,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 1,
-                                          color: Colors.blue.shade100)),
-                                  child: Center(
-                                    child: Text(
-                                      "$details",
-                                      textAlign: TextAlign.justify,
-                                      style: textTheme.bodyText2,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "$date",
+                                      style: textTheme.bodyText2
+                                          ?.copyWith(fontSize: 16),
                                     ),
-                                  ),
-                                )
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "$name",
+                                      style: textTheme.bodyText2
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "${amount == null ? 0 : amount}",
+                                      style: textTheme.bodyText2
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    // SizedBox(
+                                    //   height: 2,
+                                    // ),
+                                    Text(
+                                      "${quantity == null ? 0 : quantity}",
+                                      style: textTheme.bodyText2
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
-                            // SizedBox(
-                            //   height: 2,
-                            // ),
+                            SizedBox(
+                              height: 8,
+                            ),
                             Text(
-                              "Image: ..",
-                              style: textTheme.bodyText2,
+                              "Details: ",
+                              style: textTheme.bodyText2
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Container(
+                              // height: 60,
+                              // width: 400,
+                              child: Text(
+                                "$details",
+                                // textAlign: TextAlign.justify,
+                                style: textTheme.bodyText2?.copyWith(),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Image",
+                              style: textTheme.bodyText2
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                             Container(
                               height: 200,
@@ -354,14 +447,14 @@ class DonationCard extends StatelessWidget {
                                                 child: Image.network(
                                                   "https://ezze.dev/donation/" +
                                                       image![index].toString(),
+                                                  height: 250,
+                                                  width: 100,
+                                                  fit: BoxFit.fill,
                                                 ),
                                               )),
                                 ),
                               ),
                             ),
-                            // Divider(
-                            //   thickness: 1,
-                            // )
                           ],
                         ),
                       )

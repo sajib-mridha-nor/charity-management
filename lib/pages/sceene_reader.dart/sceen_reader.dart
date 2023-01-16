@@ -78,7 +78,7 @@ class _SceenerPageState extends State<SceenerPage> {
                           width: 400,
                           child: CameraPreview(
                             controller,
-                            child: Image.asset("assets/s.png"),
+                            // child: Image.asset("assets/s.png"),
                           ),
                         ),
                       )
@@ -205,14 +205,14 @@ class _SceenerPageState extends State<SceenerPage> {
                       OutlinedButton(
                           autofocus: false,
                           style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all(Colors.blue.shade200),
-                            // backgroundColor: MaterialStateProperty.all(
-                            //     Colors.blue.shade200),
-                            elevation: MaterialStateProperty.all(4),
-                            // shadowColor:
-                            //     MaterialStateProperty.all(Colors.blue)
-                          ),
+                              // foregroundColor:
+                              // MaterialStateProperty.all(Colors.blue.shade200),
+                              // backgroundColor: MaterialStateProperty.all(
+                              //     Colors.blue.shade200),
+                              // elevation: MaterialStateProperty.all(4),
+                              // shadowColor:
+                              //     MaterialStateProperty.all(Colors.blue)
+                              ),
                           onPressed: () {
                             Get.back();
                           },
@@ -224,13 +224,14 @@ class _SceenerPageState extends State<SceenerPage> {
                       ),
                       ElevatedButton(
                           style: ButtonStyle(
-                              foregroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                              backgroundColor: MaterialStateProperty.all(
-                                  Colors.blue.shade200),
-                              elevation: MaterialStateProperty.all(4),
-                              shadowColor:
-                                  MaterialStateProperty.all(Colors.blue)),
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            // backgroundColor: MaterialStateProperty.all(
+                            //     Colors.blue.shade200),
+                            // elevation: MaterialStateProperty.all(4),
+                            // shadowColor:
+                            //     MaterialStateProperty.all(Colors.blue)
+                          ),
                           onPressed: (() {
                             var nidv = nid.trim();
                             var l = nidv.split(" ");

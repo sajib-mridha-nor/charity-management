@@ -4,6 +4,7 @@ import 'package:donation_tracker/pages/model/contact_response.dart';
 import 'package:donation_tracker/pages/donate_history_page.dart';
 import 'package:donation_tracker/pages/search/search_page.dart';
 import 'package:donation_tracker/pages/search/search_page_controller.dart';
+import 'package:donation_tracker/utils/hexcolor.dart';
 import 'package:donation_tracker/widget/people_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
@@ -48,19 +49,18 @@ class _AllContactShowPageState extends State<AllContactShowPage> {
         .apply(displayColor: Theme.of(context).colorScheme.onSurface);
 
     return Scaffold(
+      backgroundColor: HexColor("f2f2f2"),
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text("People List"),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 147, 192, 244),
+        // backgroundColor: Color.fromARGB(255, 147, 192, 244),
         actions: [
           IconButton(
               onPressed: (() {
                 Get.to(SearchPage());
               }),
-              icon: CircleAvatar(
-                  backgroundColor: Colors.grey.withOpacity(.2),
-                  child: Icon(Icons.search)))
+              icon: Icon(Icons.search))
         ],
       ),
       body: Padding(

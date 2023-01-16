@@ -43,10 +43,10 @@ class CustomButton extends StatelessWidget {
       onPressed: loading == true ? null : onClick,
       child: Ink(
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            color ?? Colors.blue.shade400,
-            color ?? Colors.blue.shade200,
-          ]),
+          // gradient: LinearGradient(colors: [
+          //   color ?? Colors.blue.shade400,
+          //   color ?? Colors.blue.shade200,
+          // ]),
           borderRadius: BorderRadius.circular(radius ?? 6.0),
         ),
         child: Container(

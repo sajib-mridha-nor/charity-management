@@ -20,8 +20,8 @@ class _UnionPageState extends State<UnionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 147, 192, 244),
-        iconTheme: IconThemeData(color: Colors.white),
+        // iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: HexColor("#1D3EB1"),
         title: Text(
           "Search By Union",
           style: TextStyle(color: Colors.white),
@@ -56,8 +56,21 @@ class _UnionPageState extends State<UnionPage> {
                           .contains(search.toLowerCase());
                 },
                 popupProps: PopupPropsMultiSelection.modalBottomSheet(
-                    showSelectedItems: true,
+                    showSelectedItems: false,
                     showSearchBox: true,
+                    searchFieldProps: TextFieldProps(
+                        decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 8),
+                      hintStyle: TextStyle(
+                          decorationStyle: TextDecorationStyle.dashed),
+                      hintText: "Search here...",
+                    )),
                     itemBuilder: (context, item, isSelected) => Container(
                           margin: EdgeInsets.symmetric(horizontal: 8),
                           decoration: !isSelected
@@ -68,7 +81,7 @@ class _UnionPageState extends State<UnionPage> {
                                           .colorScheme
                                           .primary),
                                   borderRadius: BorderRadius.circular(5),
-                                  color: Colors.white,
+                                  color: HexColor("#1D3EB1"),
                                 ),
                           child: ListTile(
                             selected: isSelected,
@@ -83,10 +96,15 @@ class _UnionPageState extends State<UnionPage> {
                         borderRadius: BorderRadius.circular(6.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: HexColor("#C4C4C4")),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: HexColor("#1D3EB1").withOpacity(.5),
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: HexColor("#C4C4C4")),
+                        borderSide: BorderSide(
+                          color: HexColor("#1D3EB1"),
+                        ),
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 14, horizontal: 16)),

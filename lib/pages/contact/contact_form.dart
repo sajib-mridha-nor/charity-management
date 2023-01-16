@@ -48,19 +48,18 @@ class _ContactFormState extends State<ContactForm> {
   var nidImg;
 
   List<String> _union = [
-    "Chamari",
-    "Chhatardighi",
-    "Chowgram",
+    "Sukash",
     "Dahia",
-    "Hatiandaha",
     "Italy",
-    "Kalom",
+    "Kalam",
+    "Chamari",
+    "Hatiandaha",
     "Lalore",
-    "Ramananda",
-    "Khajura",
     "Sherkole",
     "Tajpur",
-    "Sukash"
+    "Chaugram",
+    "Chhatardighi",
+    "Ramananda khajura",
   ];
 
   @override
@@ -272,7 +271,7 @@ class _ContactFormState extends State<ContactForm> {
             ),
           ),
         ],
-        backgroundColor: Colors.blue.withOpacity(.5),
+        // backgroundColor: Colors.blue.withOpacity(.5),
         centerTitle: true,
         title: Text("Add Contract"),
       ),
@@ -284,7 +283,7 @@ class _ContactFormState extends State<ContactForm> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   Container(
                     width: double.infinity,
@@ -294,7 +293,8 @@ class _ContactFormState extends State<ContactForm> {
                         SizedBox(
                           width: 280,
                           child: Text(
-                              "fill-up  form correctly or Scanned Cleare NID to detecte Name and NID no."),
+                            "Fill-up  form correctly or Scanned Cleare NID to detecte Name and NID no.",
+                          ),
                         ),
                         // SizedBox(
                         //   width: 8,
@@ -336,7 +336,7 @@ class _ContactFormState extends State<ContactForm> {
                     ),
                   ),
                   SizedBox(
-                    height: 8,
+                    height: 16,
                   ),
                   CustomTextField(
                     initialValue: widget.name,
@@ -360,7 +360,7 @@ class _ContactFormState extends State<ContactForm> {
                       items: ["Male", "Female"],
                       initialValue: ""),
                   SizedBox(
-                    height: 8,
+                    height: 4,
                   ),
                   CustomFilePicker2(
                       require: false,

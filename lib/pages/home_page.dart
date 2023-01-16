@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   UserAccountsDrawerHeader(
                     decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(.5),
+                      color: Colors.blueAccent,
                     ),
                     accountName: Text(profile["user"]["name"] ?? ''),
                     accountEmail: Text(profile["user"]["email"] ?? ""),
@@ -98,12 +98,12 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          // backgroundColor: Color(0xFFADC6E3),
-          backgroundColor: HexColor("b9e0ff"),
+          backgroundColor: HexColor("f2f2f2"),
+          // backgroundColor: Colors.white70,
           appBar: AppBar(
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.white),
-            backgroundColor: Color.fromARGB(255, 147, 192, 244),
+            backgroundColor: HexColor("#1D3EB1"),
             centerTitle: true,
             title: const Text(
               "Charity Management",
@@ -117,12 +117,10 @@ class HomePage extends StatelessWidget {
                   onPressed: (() {
                     Get.to(SearchPage());
                   }),
-                  icon: CircleAvatar(
-                      backgroundColor: Colors.white.withOpacity(.2),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      )))
+                  icon: Icon(
+                    Icons.search,
+                    // color: Colors.white,
+                  ))
             ],
           ),
           body: RefreshIndicator(
@@ -153,7 +151,7 @@ class HomePage extends StatelessWidget {
                               autoPlay: true,
                               initialPage: 0,
                               enableInfiniteScroll: true,
-                              viewportFraction: .99,
+                              viewportFraction: .999,
                               aspectRatio: 1.5,
                               autoPlayInterval: const Duration(seconds: 10),
                               autoPlayAnimationDuration:
@@ -178,79 +176,67 @@ class HomePage extends StatelessWidget {
                         height: 16,
                       ),
                       Positioned.fill(
-                        bottom: -160,
+                        bottom: -100,
                         child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Card(
                             elevation: 0,
                             margin: EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 0),
-                            color: HexColor("b9e0ff"),
+                            color: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(8),
                               topRight: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
+                              bottomRight: Radius.circular(8),
                             )),
                             child: SizedBox(
-                              height: 190,
+                              height: 130,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 0, vertical: 20),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    GestureDetector(
-                                      onTap: (() {
-                                        // Get.to(LoginPage());
-                                      }),
-                                      child: Totals(
-                                          offeset: Offset(0, 0),
-                                          height: 150,
-                                          width: 120,
-                                          icon: "assets/bangladesh.png",
-                                          title: "Total Union",
-                                          caption: controller.unionData?.length
-                                                  .toString() ??
-                                              ""),
+                                    StaticCard(
+                                        title: "Union",
+                                        img: "assets/bangladesh.png",
+                                        txt: controller.unionData!.length
+                                            .toString()),
+                                    VerticalDivider(
+                                      width: 1,
+                                      thickness: 1,
                                     ),
-                                    const SizedBox(
-                                      width: 8,
+                                    StaticCard(
+                                        title: "Contacts",
+                                        img: "assets/add-user.png",
+                                        txt: state!.contacts.toString()),
+
+                                    VerticalDivider(
+                                      width: 1,
+                                      thickness: 1,
                                     ),
-                                    Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: (() {
-                                            // Get.to(LoginPage());
-                                          }),
-                                          child: Totals(
-                                              offeset: Offset(0, 0),
-                                              height: 70,
-                                              width: 180,
-                                              imgH: 18,
-                                              imgW: 18,
-                                              icon: "assets/charity.png",
-                                              title: "Total Contacts",
-                                              caption:
-                                                  state!.contacts.toString()),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        GestureDetector(
-                                          onTap: (() {}),
-                                          child: Totals(
-                                              offeset: Offset(0, 0),
-                                              height: 70,
-                                              width: 180,
-                                              imgH: 12,
-                                              imgW: 12,
-                                              icon: "assets/donation.png",
-                                              title: "Total Donates",
-                                              caption:
-                                                  state.donates.toString()),
-                                        ),
-                                      ],
-                                    )
+                                    StaticCard(
+                                        title: "Donates",
+                                        img: "assets/taka.png",
+                                        txt: state.donates.toString()),
+
+                                    // GestureDetector(
+                                    //   onTap: (() {
+                                    //     // Get.to(LoginPage());
+                                    //   }),
+                                    //   child: Totals(
+                                    //       offeset: Offset(0, 0),
+                                    //       height: 150,
+                                    //       width: 120,
+                                    //       icon: "assets/bangladesh.png",
+                                    //       title: "Total Union",
+                                    //       caption: controller.unionData?.length
+                                    //               .toString() ??
+                                    //           ""),
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -262,65 +248,81 @@ class HomePage extends StatelessWidget {
                   ),
 
                   SizedBox(
-                    height: 160,
+                    height: 120,
                   ),
-                  Column(
-                    children: [
-                      GestureDetector(
-                        onTap: (() {
-                          Get.to(AllContactShowPage());
-                        }),
-                        child: StatisticWidget2(
-                            height: 120,
-                            width: double.infinity,
-                            icon: "assets/c.png",
-                            title: "People List",
-                            caption: ""),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      SizedBox(
-                        height: 120,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: (() {
-                                  Get.to(ContactForm());
-                                }),
-                                child: const StatisticWidget2(
-                                    height: 120,
-                                    width: 170,
-                                    icon: "assets/l.png",
-                                    title: "Add People",
-                                    caption: " "),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 120,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: (() {
+                                    Get.to(AllContactShowPage());
+                                  }),
+                                  child: StatisticWidget2(
+                                      height: 120,
+                                      width: double.infinity,
+                                      icon: "assets/phone-book.png",
+                                      title: "People List",
+                                      caption: ""),
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: (() {
-                                  Get.to(UnionPage());
-                                }),
-                                child: StatisticWidget2(
-                                    height: 120,
-                                    width: 170,
-                                    icon: "assets/union.jpeg",
-                                    title: "Search by Union ",
-                                    caption: ""),
+                              const SizedBox(
+                                width: 16,
                               ),
-                            )
-                          ],
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: (() {
+                                    Get.to(ContactForm());
+                                  }),
+                                  child: const StatisticWidget2(
+                                      height: 120,
+                                      width: 170,
+                                      icon: "assets/addp.png",
+                                      title: "Add People",
+                                      caption: " "),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                        SizedBox(
+                          height: 24,
+                        ),
+                        GestureDetector(
+                          onTap: (() {
+                            Get.to(UnionPage());
+                          }),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: HexColor("#1D3EB1"),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 32),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Search by Union",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  Icon(Icons.arrow_forward, color: Colors.white)
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
 
                   // GestureDetector(
@@ -343,5 +345,39 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ));
+  }
+}
+
+class StaticCard extends StatelessWidget {
+  const StaticCard(
+      {Key? key, required this.title, required this.img, required this.txt})
+      : super(key: key);
+
+  final String img;
+  final String txt;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.asset(
+          img,
+          height: 34,
+          width: 34,
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Text(
+          txt,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.normal),
+        )
+      ],
+    );
   }
 }

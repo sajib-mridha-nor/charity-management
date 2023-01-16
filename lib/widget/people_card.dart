@@ -26,78 +26,115 @@ class PeopleCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: onClick,
-      child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-            side: BorderSide(
-              color: Colors.white,
-              width: 0,
-            ),
-          ),
-          elevation: 1,
-          color: HexColor("#E8EFF2"),
-          child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: image == null
-                          ? CircleAvatar(
-                              radius: 40,
-                              backgroundImage:
-                                  AssetImage("assets/pngwing.com.png"))
-                          : CircleAvatar(
-                              radius: 40,
-                              backgroundImage: NetworkImage(
-                                  "https://ezze.dev/donation/" +
-                                      image.toString()))),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: 12,
-                  ),
-                ),
-                Expanded(
-                  flex: 7,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Text(name ?? "Abul Fazal Mia",
-                          style: textTheme.titleSmall
-                              ?.copyWith(color: Colors.black)),
-                      Text("NID:  ${(nid ?? "1234567890")}",
-                          style: textTheme.titleSmall
-                              ?.copyWith(color: Colors.black)),
-                      Text("Phone:  ${phone ?? "017xxxxxxx"}",
-                          style: textTheme.titleSmall
-                              ?.copyWith(color: Colors.black)),
-                      Text("Union:  ${union ?? "Firuzpur"}",
-                          style: textTheme.titleSmall
-                              ?.copyWith(color: Colors.black)),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: image == null
+                                ? CircleAvatar(
+                                    radius: 40,
+                                    backgroundImage:
+                                        AssetImage("assets/pngwing.com.png"))
+                                : CircleAvatar(
+                                    radius: 40,
+                                    backgroundImage: NetworkImage(
+                                        "https://ezze.dev/donation/" +
+                                            image.toString()))),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox(
+                          width: 12,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(name ?? "Abul Fazal Mia",
+                                style: textTheme.titleMedium
+                                    ?.copyWith(color: Colors.black)),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Row(
+                              children: [
+                                Text("NID: ",
+                                    style: textTheme.bodyMedium
+                                        ?.copyWith(color: Colors.black)),
+                                SizedBox(
+                                  width: 18,
+                                ),
+                                Text(" ${(nid ?? "1234567890")}",
+                                    style: textTheme.bodyMedium
+                                        ?.copyWith(color: Colors.black)),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Row(
+                              children: [
+                                Text("Phone:",
+                                    style: textTheme.bodyMedium
+                                        ?.copyWith(color: Colors.black)),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text("${phone ?? "017xxxxxxx"}",
+                                    style: textTheme.bodyMedium
+                                        ?.copyWith(color: Colors.black)),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Row(
+                              children: [
+                                Text("Union: ",
+                                    style: textTheme.bodyMedium?.copyWith()),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text("${union ?? "Firuzpur"}",
+                                    style: textTheme.bodyMedium?.copyWith()),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            SizedBox(
+                                // height: 20,
+                                // width: 80,
+                                child: ElevatedButton(
+                                    onPressed: onDonate, child: Text("Donate")))
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox(
+                          width: 26,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: 26,
-                  ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: SizedBox(
-                      // height: 20,
-                      // width: 80,
-                      child: ElevatedButton(
-                          onPressed: onDonate, child: Text("Donate"))),
-                )
-              ],
-            ),
-          )),
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

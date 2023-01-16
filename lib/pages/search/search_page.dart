@@ -2,6 +2,7 @@ import 'package:donation_tracker/pages/donation/donation_form_page.dart';
 import 'package:donation_tracker/pages/model/contact_response.dart';
 import 'package:donation_tracker/pages/donate_history_page.dart';
 import 'package:donation_tracker/pages/search/search_page_controller.dart';
+import 'package:donation_tracker/utils/hexcolor.dart';
 import 'package:donation_tracker/widget/people_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
@@ -21,9 +22,8 @@ class _SearchPageState extends State<SearchPage> {
   final controller = Get.put(SearchPageController());
 
   AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-        title: const Text("Search"),
-        backgroundColor: Color.fromARGB(255, 147, 192, 244),
+    return AppBar(title: const Text("Search"),
+        // backgroundColor: Color.fromARGB(255, 147, 192, 244),
         actions: [
           searchBar.getSearchAction(context),
         ]);
@@ -71,6 +71,7 @@ class _SearchPageState extends State<SearchPage> {
         .apply(displayColor: Theme.of(context).colorScheme.onSurface);
 
     return Scaffold(
+      backgroundColor: HexColor("f2f2f2"),
       key: _scaffoldKey,
       appBar: searchBar.build(context),
       body: Padding(
