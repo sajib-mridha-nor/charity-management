@@ -190,31 +190,34 @@ class PeopleDetailsPage extends StatelessWidget {
                   height: 16,
                 ),
 
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Colors.grey.withOpacity(0.5),
-                      //     spreadRadius: 1,
-                      //     blurRadius: 1,
-                      //     offset: Offset(0, 2), // changes position of shadow
-                      //   ),
-                      // ],
-                      color: HexColor("#D6DFFF"),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 16),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Total donation:",
-                              style: textTheme.titleMedium?.copyWith()),
-                          Text("${state?.length}",
-                              style: textTheme.titleMedium?.copyWith()),
-                        ],
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //     color: Colors.grey.withOpacity(0.5),
+                        //     spreadRadius: 1,
+                        //     blurRadius: 1,
+                        //     offset: Offset(0, 2), // changes position of shadow
+                        //   ),
+                        // ],
+                        color: HexColor("#D6DFFF"),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 16),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total donation:",
+                                style: textTheme.titleMedium?.copyWith()),
+                            Text("${state?.length}",
+                                style: textTheme.titleMedium?.copyWith()),
+                          ],
+                        ),
                       ),
                     ),
                   ),

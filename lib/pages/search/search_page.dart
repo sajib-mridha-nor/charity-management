@@ -29,6 +29,21 @@ class _SearchPageState extends State<SearchPage> {
         ]);
   }
 
+  List<String> _union = [
+    "Sukash",
+    "Dahia",
+    "Italy",
+    "Kalam",
+    "Chamari",
+    "Hatiandaha",
+    "Lalore",
+    "Sherkole",
+    "Tajpur",
+    "Chaugram",
+    "Chhatardighi",
+    "Ramananda khajura",
+  ];
+
   @override
   void dispose() {
     controller.dispose();
@@ -84,7 +99,8 @@ class _SearchPageState extends State<SearchPage> {
                     nid: item.nidBirth.toString(),
                     image: item.image,
                     phone: item.mobile.toString(),
-                    union: item.union.toString(),
+                    union:
+                        _union[int.parse(item.union.toString()) - 4].toString(),
                     onClick: () {
                       print(item.id);
                       Get.to(

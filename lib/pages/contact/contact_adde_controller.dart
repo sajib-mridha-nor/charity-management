@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:donation_tracker/pages/contact/allcontact.dart';
+import 'package:donation_tracker/pages/model/union_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:donation_tracker/pages/donation/donation_form_page.dart';
@@ -27,9 +28,12 @@ class ContactController extends GetxController {
   static const _pageSize = 15;
   Map<String, String> map = {};
   RxBool isLoading = false.obs;
+  List<Union>? unionData;
+  List<Union>? unionList;
 
   @override
   void onInit() {
+    FatchUnionData();
     super.onInit();
   }
 
@@ -60,12 +64,10 @@ class ContactController extends GetxController {
       final resdata = res.body;
       ;
       if (res.statusCode == 200) {
-        Get.snackbar(
-          "Successful",
-          "Submitted Successful, see details list",
-          backgroundColor: Colors.green.withOpacity(0.5),
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        Get.snackbar("Successful", "Submitted Successful, see details list",
+            backgroundColor: Colors.green.withOpacity(0.5),
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 1));
 
         // print("ff $res");
         Get.off(AllContactShowPage());
@@ -136,6 +138,29 @@ class ContactController extends GetxController {
       isLoading(false);
 
       print(message);
+    }
+  }
+
+  FatchUnionData() async {
+    try {
+      isLoading(true);
+
+      final unionRes = await dioClient.get(
+        "union",
+      );
+
+      unionData = UnionModel.fromJson(unionRes).data;
+      unionList = List<Union>.from(unionData!.map((i) => i.bnName).toList());
+
+      print("union ${unionRes}");
+
+      isLoading(true);
+    } catch (e) {
+      isLoading(true);
+
+      isLoading(false);
+      var error = NetworkExceptions.getDioException(e);
+      var message = NetworkExceptions.getErrorMessage(error);
     }
   }
 

@@ -42,6 +42,21 @@ class _AllContactShowPageState extends State<AllContactShowPage> {
     super.initState();
   }
 
+  List<String> _union = [
+    "Sukash",
+    "Dahia",
+    "Italy",
+    "Kalam",
+    "Chamari",
+    "Hatiandaha",
+    "Lalore",
+    "Sherkole",
+    "Tajpur",
+    "Chaugram",
+    "Chhatardighi",
+    "Ramananda khajura",
+  ];
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context)
@@ -73,7 +88,8 @@ class _AllContactShowPageState extends State<AllContactShowPage> {
                     nid: item.nidBirth.toString(),
                     image: item.image,
                     phone: item.mobile.toString(),
-                    union: item.union.toString(),
+                    union:
+                        _union[int.parse(item.union.toString()) - 4].toString(),
                     onClick: () {
                       print(item.id);
                       Get.to(
@@ -83,7 +99,8 @@ class _AllContactShowPageState extends State<AllContactShowPage> {
                               phone: item.mobile,
                               nid: item.nidBirth,
                               image: item.image,
-                              union: item.union,
+                              union:
+                                  _union[int.parse(item.union.toString()) - 4],
                               id: item.id.toString()),
                           arguments: {"c_id": item.id});
                     },

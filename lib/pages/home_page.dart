@@ -138,7 +138,9 @@ class HomePage extends StatelessWidget {
                             return GestureDetector(
                               onTap: () {},
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
                                 child: Image.asset(
                                   "$item",
                                   fit: BoxFit.cover,
@@ -151,7 +153,7 @@ class HomePage extends StatelessWidget {
                               autoPlay: true,
                               initialPage: 0,
                               enableInfiniteScroll: true,
-                              viewportFraction: .999,
+                              viewportFraction: 1,
                               aspectRatio: 1.5,
                               autoPlayInterval: const Duration(seconds: 10),
                               autoPlayAnimationDuration:

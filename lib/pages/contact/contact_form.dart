@@ -275,254 +275,211 @@ class _ContactFormState extends State<ContactForm> {
         centerTitle: true,
         title: Text("Add Contract"),
       ),
-      body: SingleChildScrollView(
-        child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: 280,
-                          child: Text(
-                            "Fill-up  form correctly or Scanned Cleare NID to detecte Name and NID no.",
+      body: Obx(
+        () => controller.isLoading.value == true
+            ? Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 8,
                           ),
-                        ),
-                        // SizedBox(
-                        //   width: 8,
-                        // ),
-                        // GestureDetector(
-                        //   onTap: () async {
-                        //     await availableCameras().then((value) =>
-                        //         Get.to(() => SceenerPage(cameras: value)));
-                        //     // result =
-                        //     //     await getImage(ImageSource.camera).then((data) {
-                        //     //   imageFile != null
-                        //     //       ? dialog(context, imageFile, result)
-                        //     //       : null;
-                        //     //   print(result);
-                        //     // });
-                        //   },
-                        //   child: Container(
-                        //     decoration: BoxDecoration(
-                        //         color: Colors.grey.shade100,
-                        //         borderRadius: BorderRadius.circular(4),
-                        //         boxShadow: [
-                        //           BoxShadow(
-                        //             color: Colors.black.withOpacity(0.2),
-                        //             spreadRadius: 1,
-                        //             blurRadius: 1,
-                        //             offset: Offset(
-                        //                 0, 1), // changes position of shadow
-                        //           ),
-                        //         ]),
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.symmetric(
-                        //           horizontal: 8, vertical: 4),
-                        //       child: Lottie.asset('assets/sc3.json',
-                        //           height: 34, width: 34, fit: BoxFit.cover),
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  CustomTextField(
-                    initialValue: widget.name,
-                    hint: "Write receiver name",
-                    helperTxt: "Write receiver name",
-                    onChange: (t) {
-                      controller.map["name"] = t.toString();
-                    },
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  CustomRadioGroup(
-                      require: false,
-                      onChange: ((index, value) {
-                        controller.map["gender"] = value.toString();
-                      }),
-                      label: "Gender",
-                      labelStyle:
-                          textTheme.displayMedium?.copyWith(fontSize: 18),
-                      items: ["Male", "Female"],
-                      initialValue: ""),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  CustomFilePicker2(
-                      require: false,
-                      hint: "Selecte profile Photo",
-                      onChange: (file) {
-                        controller.profile = file.path;
-                        print("onchanggggg ${file}");
-                      }),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CustomTextField(
-                    maxLength: 11,
-                    keyboardType: TextInputType.phone,
-                    helperTxt: "Write receiver phone no.",
-                    hint: "Write receiver phone no.",
-                    onChange: (value) {
-                      controller.map["mobile"] = value.toString();
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CustomTextField(
-                    require: false,
-                    initialValue: widget.nid,
-                    keyboardType: TextInputType.number,
-                    helperTxt: "Write receiver NID no. or BD certificate no.",
-                    hint: "Write receiver NID no. or BD certificate no.",
-                    onChange: (value) {
-                      controller.map["nid_birth"] = value.toString();
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CustomFilePicker2(
-                      initialize: widget.imageFile,
-                      require: false,
-                      hint: "Selecte NID Photo",
-                      onChange: (file) {
-                        // file = File(widget.imageFile.path);
-                        controller.image = file.path;
-                        print("onchanggggg ${file}");
-                      }),
+                          Container(
+                            width: double.infinity,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 280,
+                                  child: Text(
+                                    "Fill-up  form correctly or Scanned Cleare NID to detecte Name and NID no.",
+                                  ),
+                                ),
+                                // SizedBox(
+                                //   width: 8,
+                                // ),
+                                // GestureDetector(
+                                //   onTap: () async {
+                                //     await availableCameras().then((value) =>
+                                //         Get.to(() => SceenerPage(cameras: value)));
+                                //     // result =
+                                //     //     await getImage(ImageSource.camera).then((data) {
+                                //     //   imageFile != null
+                                //     //       ? dialog(context, imageFile, result)
+                                //     //       : null;
+                                //     //   print(result);
+                                //     // });
+                                //   },
+                                //   child: Container(
+                                //     decoration: BoxDecoration(
+                                //         color: Colors.grey.shade100,
+                                //         borderRadius: BorderRadius.circular(4),
+                                //         boxShadow: [
+                                //           BoxShadow(
+                                //             color: Colors.black.withOpacity(0.2),
+                                //             spreadRadius: 1,
+                                //             blurRadius: 1,
+                                //             offset: Offset(
+                                //                 0, 1), // changes position of shadow
+                                //           ),
+                                //         ]),
+                                //     child: Padding(
+                                //       padding: const EdgeInsets.symmetric(
+                                //           horizontal: 8, vertical: 4),
+                                //       child: Lottie.asset('assets/sc3.json',
+                                //           height: 34, width: 34, fit: BoxFit.cover),
+                                //     ),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          CustomTextField(
+                            initialValue: widget.name,
+                            hint: "Write receiver name",
+                            helperTxt: "Write receiver name",
+                            onChange: (t) {
+                              controller.map["name"] = t.toString();
+                            },
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          CustomRadioGroup(
+                              require: false,
+                              onChange: ((index, value) {
+                                controller.map["gender"] = value.toString();
+                              }),
+                              label: "Gender",
+                              labelStyle: textTheme.displayMedium
+                                  ?.copyWith(fontSize: 18),
+                              items: ["Male", "Female"],
+                              initialValue: ""),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          CustomFilePicker2(
+                              require: false,
+                              hint: "Selecte profile Photo",
+                              onChange: (file) {
+                                controller.profile = file.path;
+                                print("onchanggggg ${file}");
+                              }),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomTextField(
+                            maxLength: 11,
+                            keyboardType: TextInputType.phone,
+                            helperTxt: "Write receiver phone no.",
+                            hint: "Write receiver phone no.",
+                            onChange: (value) {
+                              controller.map["mobile"] = value.toString();
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomTextField(
+                            require: false,
+                            initialValue: widget.nid,
+                            keyboardType: TextInputType.number,
+                            helperTxt:
+                                "Write receiver NID no. or BD certificate no.",
+                            hint:
+                                "Write receiver NID no. or BD certificate no.",
+                            onChange: (value) {
+                              controller.map["nid_birth"] = value.toString();
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomFilePicker2(
+                              initialize: widget.imageFile,
+                              require: false,
+                              hint: "Selecte NID Photo",
+                              onChange: (file) {
+                                // file = File(widget.imageFile.path);
+                                controller.image = file.path;
+                              }),
 
-                  SizedBox(
-                    height: 20,
-                  ),
-                  // CustomTextField(
-                  //   require: false,
-                  //   helperTxt: "Write receiver BD certificate no.(if NID N/A)",
-                  //   hint: "Write receiver BD certificate no.",
-                  //   onChange: (value) {
-                  //     controller.map["nid_birth"] = value.toString();
-                  //   },
-                  // ),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  CustomTextField(
-                    helperTxt: "Write receiver address",
-                    hint: "Write receiver address",
-                    onChange: (value) {
-                      controller.map["address"] = value.toString();
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CustomDropdown(
-                      // label: "Union",
-                      items: _union,
-                      hint: "Union",
-                      onChange: (value) {
-                        controller.map["union"] = value.toString();
-                      }),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Obx(
-                    () => CustomButton(
-                      loading: controller.isLoading.value,
-                      onClick: () {
-                        if (_formKey.currentState!.validate()) {
-                          controller.postContacts();
-                        } else {
-                          print("object");
-                        }
-                        // var file = File(widget.imageFile!.path);
-                        // controller.image = file;
+                          SizedBox(
+                            height: 20,
+                          ),
+                          // CustomTextField(
+                          //   require: false,
+                          //   helperTxt: "Write receiver BD certificate no.(if NID N/A)",
+                          //   hint: "Write receiver BD certificate no.",
+                          //   onChange: (value) {
+                          //     controller.map["nid_birth"] = value.toString();
+                          //   },
+                          // ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
+                          CustomTextField(
+                            helperTxt: "Write receiver address",
+                            hint: "Write receiver address",
+                            onChange: (value) {
+                              controller.map["address"] = value.toString();
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomDropdown(
+                              // label: "Union",
+                              items: _union,
+                              hint: "Union",
+                              onChange: (value) {
+                                final v = controller.unionList?.firstWhere(
+                                    (element) =>
+                                        element.enName?.trim() ==
+                                        value?.trim());
+                                final uId = v?.id.toString();
+                                print(v?.id.toString());
 
-                        print("onchanggggg ${controller.image}");
-                        print(controller.map);
-                      },
-                      title: 'Add Contact',
-                      txtClr: Colors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
+                                final index = _union
+                                    .indexWhere((element) => element == value);
+                                controller.map["union"] =
+                                    (index + 4).toString();
+                                print(controller.map["union"]);
+                              }),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Obx(
+                            () => CustomButton(
+                              loading: controller.isLoading.value,
+                              onClick: () {
+                                if (_formKey.currentState!.validate()) {
+                                  controller.postContacts();
+                                } else {
+                                  print("object");
+                                }
+
+                                print(controller.map);
+                              },
+                              title: 'Add Contact',
+                              txtClr: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    )),
               ),
-            )),
       ),
     );
   }
 }
-
-  // getImage(ImageSource source) async {
-  //   try {
-  //     final pickedImage = await ImagePicker().pickImage(source: source);
-  //     if (pickedImage != null) {
-  //       textScanning = true;
-
-  //       setState(() {
-  //         imageFile = pickedImage;
-  //       });
-  //       var result = getRecognisedText(pickedImage);
-  //       return [pickedImage.path, result];
-  //     }
-  //   } catch (e) {
-  //     textScanning = false;
-  //     imageFile = null;
-  //     scannedText = "Error occured while scanning";
-  //     setState(() {});
-  //     return "Choose image";
-  //   }
-  // }
-
-  // getRecognisedText(XFile image) async {
-    // final inputImage = InputImage.fromFilePath(image.path);
-    // final textDetector = GoogleMlKit.vision.textRecognizer();
-    // var recognisedText = await textDetector.processImage(inputImage);
-    // await textDetector.close();
-    // scannedText = "";
-    // for (TextBlock block in recognisedText.blocks) {
-    //   for (TextLine line in block.lines) {
-    //     scannedText = scannedText + line.text + "\n";
-    //   }
-    // }
-    // var totalL = scannedText.split(" ");
-    // print(totalL);
-
-    // if (totalL.contains("ID")) {
-    //   var nidL = scannedText.split("ID NO:");
-    //   var namL = scannedText.split("Name:");
-    //   // var date = l.sublist(1).join('\n').trim();
-    //   var nidl = nidL[1].split("\n");
-    //   var namel = namL[1].split("\n");
-    //   nid = nid[0].trim().toString();
-    //   name = name[0].trim();
-    // } else {
-    //   return "Please choose clear nid photo";
-    // }
-
-    // // prefix[0];
-    // print("list ${nid[0]}");
-    // print("prefix ${name[0]}");
-    // textScanning = false;
-    // setState(() {});
-    // return {"name": name, "nid": nid};
-  // }
-

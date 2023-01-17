@@ -18,7 +18,7 @@ class UnionController extends GetxController with StateMixin<List<Union>> {
 
   RxBool isLoading = false.obs;
   RxString unionId = "".obs;
-  Union? UnionData;
+  // Union? UnionData;
   List<Union>? unionData;
   List<Contact>? unionList;
 
