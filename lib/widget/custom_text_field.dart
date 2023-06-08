@@ -122,7 +122,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       icon: Icon(
                           _passwordInVisible
                               ? Icons.visibility_off
-                              : Icons.visibility,
+                              : Icons.visibility,size: 22,
                           color: HexColor("#C4C4C4")),
                       onPressed: () {
                         setState(() {

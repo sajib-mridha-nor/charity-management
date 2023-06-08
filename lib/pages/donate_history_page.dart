@@ -53,7 +53,7 @@ class PeopleDetailsPage extends StatelessWidget {
                 icon: Icon(Icons.home))
           ],
           title: Text(
-            "Details page",
+            "Details page",   style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold)
           ),
           centerTitle: true,
           // backgroundColor: Colors.blue.withOpacity(.5),
@@ -85,7 +85,7 @@ class PeopleDetailsPage extends StatelessWidget {
                                     : CircleAvatar(
                                         radius: 40,
                                         backgroundImage: NetworkImage(
-                                            "https://ezze.dev/donation/" +
+                                            "https://smartdonation.xyz/" +
                                                 image.toString()))),
                             SizedBox(
                               height: 4,
@@ -439,7 +439,7 @@ class DonationCard extends StatelessWidget {
                                       ? List.generate(
                                           1,
                                           (index) => Image.asset(
-                                                "assets/charity.png",
+                                                "assets/noimage.png",
                                                 height: 100,
                                               ))
                                       : List.generate(
@@ -448,10 +448,10 @@ class DonationCard extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Image.network(
-                                                  "https://ezze.dev/donation/" +
+                                                  "https://smartdonation.xyz/" +
                                                       image![index].toString(),
-                                                  height: 250,
-                                                  width: 100,
+                                                  // height: 250,
+                                                  // width: 200,
                                                   fit: BoxFit.fill,
                                                 ),
                                               )),

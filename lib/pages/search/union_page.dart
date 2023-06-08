@@ -24,7 +24,7 @@ class _UnionPageState extends State<UnionPage> {
         backgroundColor: HexColor("#1D3EB1"),
         title: Text(
           "Search By Union",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -119,6 +119,7 @@ class _UnionPageState extends State<UnionPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: CustomButton(
                   txtClr: Colors.white,
+                  fontSize: 18,
                   loading: controller.isLoading.value,
                   onClick: () {
                     controller.FatchuUionContactData();

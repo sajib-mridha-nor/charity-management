@@ -113,7 +113,12 @@ class LoginPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
-                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12.0),
+  ),
+                  
+
+                  elevation: 4,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Form(
@@ -121,7 +126,7 @@ class LoginPage extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(
-                            height: 20,
+                            height: 24,
                           ),
                           CustomTextField(
                               helperTxt: "Enter email",
@@ -142,21 +147,16 @@ class LoginPage extends StatelessWidget {
                           const SizedBox(
                             height: 26,
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                           Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 80),
                 child: Obx(
                   () => CustomButton(
                       islog: true,
                       padding: EdgeInsets.all(8),
                       loading: controller.isLoading.value,
-                      fontSize: 26,
-                      txtClr: Colors.lightBlueAccent,
+                      fontSize: 18,
+                      
+                      txtClr: Colors.white,
                       radius: 40,
                       color: Colors.white12,
                       onClick: (() {
@@ -169,7 +169,19 @@ class LoginPage extends StatelessWidget {
                       }),
                       title: "Login"),
                 ),
+              ), const SizedBox(
+                height: 16,
               ),
+             
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),  const SizedBox(
+                height: 16,
+              ),
+             
               const SizedBox(
                 height: 30,
               ),

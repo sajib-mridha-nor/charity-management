@@ -49,7 +49,7 @@ class _DonationFormPageState extends State<DonationFormPage> {
         // backgroundColor: Color.fromARGB(255, 147, 192, 244),
         centerTitle: true,
         title: Text(
-          "Charity  Form",
+          "Charity  Form",   style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold)
         ),
       ),
       body: SingleChildScrollView(
@@ -62,14 +62,23 @@ class _DonationFormPageState extends State<DonationFormPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
-                  Text(
-                    "Name: ${widget.name}",
-                    style: textTheme.titleMedium,
+                  Row(
+                    children: [
+                      Text(
+                        "Name:",
+                        style: textTheme.titleMedium,
+                      ),
+                      SizedBox(width: 4,),
+                      Text(
+                        "${widget.name}",
+                        style: textTheme.titleMedium?.copyWith(fontWeight:FontWeight.bold ),
+                      ),
+                    ],
                   ),
                   SizedBox(
-                    height: 16,
+                    height: 24,
                   ),
                   CustomTextField(
                     require: true,
@@ -144,6 +153,7 @@ class _DonationFormPageState extends State<DonationFormPage> {
                   Obx(
                     () => CustomButton(
                       txtClr: Colors.white,
+                      fontSize: 18,
                       loading: controller.isLoading.value,
                       onClick: () {
                         if (_formKey.currentState!.validate()) {

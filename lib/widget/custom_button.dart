@@ -33,9 +33,9 @@ class CustomButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(0.0),
         // primary: Colors.transparent,
-        // backgroundColor: loading ? Colors.blu,
+        // backgroundColor: loading ? Colors.white60:Colors.blue,
         shadowColor: HexColor("#2F5F8A"),
-        elevation: 6,
+        elevation: 1.5,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius ?? 6.0),
         ),
@@ -61,37 +61,32 @@ class CustomButton extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: textTheme.button?.copyWith(
                             fontSize: fontSize ?? 20,
-                            color: txtClr,
-                            shadows: [
-                              // Shadow(
-                              //     offset: Offset(1, 1),
-                              //     blurRadius: 4.0,
-                              //     color: Colors.black),
-                            ])
+                            color: txtClr,fontWeight: FontWeight.bold
+                           )
                         //  TextStyle(
                         //     fontWeight: FontWeight.w600,
                         //     color: Colors.white,
                         //     fontSize: 16),
                         ),
-                    islog
-                        ? Padding(
-                            padding: const EdgeInsets.only(left: 8, top: 4),
-                            child: Icon(
-                              Icons.login,
-                              color: txtClr,
-                              size: 30,
-                            ),
-                          )
-                        : Container()
+                    // islog
+                    //     ? Padding(
+                    //         padding: const EdgeInsets.only(left: 8, top: 4),
+                    //         child: Icon(
+                    //           Icons.login,
+                    //           color: txtClr,
+                    //           size: 24,
+                    //         ),
+                    //       )
+                    //     : Container()
                   ],
                 )
               : const Center(
                   child: SizedBox(
-                      // width: 26,
-                      // height: 26,
+                      width: 24,
+                      height: 24,
                       child: CircularProgressIndicator(
                     color: Colors.white,
-                    strokeWidth: 4,
+                    strokeWidth: 3,
                   )),
                 ),
         ),

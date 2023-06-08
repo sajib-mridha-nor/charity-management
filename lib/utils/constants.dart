@@ -1,1 +1,1 @@
-const BASE_URL = "https://ezze.dev/donation/api/v1/";
+const BASE_URL = "https://smartdonation.xyz/api/v1/";

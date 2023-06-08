@@ -49,7 +49,7 @@ class PeopleCard extends StatelessWidget {
                                 : CircleAvatar(
                                     radius: 40,
                                     backgroundImage: NetworkImage(
-                                        "https://ezze.dev/donation/" +
+                                        "https://smartdonation.xyz/" +
                                             image.toString()))),
                       ),
                       Expanded(

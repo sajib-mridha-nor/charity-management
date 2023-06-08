@@ -67,7 +67,7 @@ class _AllContactShowPageState extends State<AllContactShowPage> {
       backgroundColor: HexColor("f2f2f2"),
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("People List"),
+        title: Text("People List",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
         centerTitle: true,
         // backgroundColor: Color.fromARGB(255, 147, 192, 244),
         actions: [

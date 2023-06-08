@@ -9,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'pages/auth/registration_page.dart';
+import 'pages/test.dart';
+
 main() async {
   await GetStorage.init();
   await AppPathProvider.initPath();
@@ -40,10 +43,11 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
           fontFamily: "Raleway",
+          appBarTheme: AppBarTheme(elevation: 0),
           primarySwatch: generateMaterialColorFromColor(Color(0xFF1D3EB1)),
           primaryTextTheme:
               TextTheme(headline6: TextStyle(color: Colors.white))),
-      home: box.read("token") == null ? LoginPage() : HomePage(),
+      home: box.read("token") == null ? LoginPage():HomePage() ,
     );
   }
 }

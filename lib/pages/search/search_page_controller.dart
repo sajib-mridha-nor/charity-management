@@ -38,7 +38,7 @@ class SearchPageController extends GetxController {
 
       res = await http.get(
           Uri.parse(
-              "https://ezze.dev/donation/api/v1/contacts/$query?limit=$_pageSize&page=$pageKey"),
+              "${BASE_URL}contacts/$query?limit=$_pageSize&page=$pageKey"),
           headers: {
             // 'Content-Type': 'application/json',
             // 'Accept': 'application/json',

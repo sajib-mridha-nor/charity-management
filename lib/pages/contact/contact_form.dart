@@ -273,7 +273,7 @@ class _ContactFormState extends State<ContactForm> {
         ],
         // backgroundColor: Colors.blue.withOpacity(.5),
         centerTitle: true,
-        title: Text("Add Contract"),
+        title: Text("Add People",style: textTheme.headline1?.copyWith(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
       ),
       body: Obx(
         () => controller.isLoading.value == true
@@ -458,6 +458,8 @@ class _ContactFormState extends State<ContactForm> {
                           ),
                           Obx(
                             () => CustomButton(
+
+                              fontSize: 18,
                               loading: controller.isLoading.value,
                               onClick: () {
                                 if (_formKey.currentState!.validate()) {
@@ -468,7 +470,7 @@ class _ContactFormState extends State<ContactForm> {
 
                                 print(controller.map);
                               },
-                              title: 'Add Contact',
+                              title: 'Save',
                               txtClr: Colors.white,
                             ),
                           ),

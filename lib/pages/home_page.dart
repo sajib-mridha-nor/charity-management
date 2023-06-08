@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profile = box.read("profile");
+    final profile = box.read("profile")??"";
     return controller.obx((state) => Scaffold(
           drawer: SafeArea(
             child: Drawer(
@@ -107,10 +107,7 @@ class HomePage extends StatelessWidget {
             centerTitle: true,
             title: const Text(
               "Charity Management",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-              ),
+                style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold)
             ),
             actions: [
               IconButton(

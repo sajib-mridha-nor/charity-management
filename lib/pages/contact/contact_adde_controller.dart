@@ -38,8 +38,8 @@ class ContactController extends GetxController {
   }
 
   postContacts() async {
-    var postUri = Uri.parse("https://ezze.dev/donation/api/v1/contacts");
-    var url = Uri.https('ezze.dev', '/donation/api/v1/contacts');
+    var postUri = Uri.parse("${BASE_URL}contacts");
+    // var url = Uri.https('ezze.dev', '/donation/api/v1/contacts');
     var token = GetStorage().read("token");
     print("ff ${GetStorage().read("token")}");
     try {
@@ -54,10 +54,31 @@ class ContactController extends GetxController {
       request.fields.addAll(map);
       request.headers['authorization'] = 'Bearer $token';
 
-      var multipartFile = await http.MultipartFile.fromPath('nid_image', image);
-      var multipartFile2 = await http.MultipartFile.fromPath('image', profile);
+      profile==null? Get.snackbar("Please upload profile", "",
+            backgroundColor: Colors.green.withOpacity(0.5),
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 1)):null;
+             
+
+
+      if (image==null) {
+         Get.snackbar("Please upload NID", "Date of Birth certificates",
+            backgroundColor: Colors.green.withOpacity(0.5),
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 1));
+      
+        
+      } else {
+       
+        
+      }
       //returns a Future<MultipartFile>
-      request.files.add(multipartFile);
+       var multipartFile = await http.MultipartFile.fromPath('nid_image', image);
+        request.files.add(multipartFile);
+
+
+      var multipartFile2 = await http.MultipartFile.fromPath('image', profile);
+      
       request.files.add(multipartFile2);
       var response = await request.send();
       final res = await http.Response.fromStream(response);
@@ -73,7 +94,7 @@ class ContactController extends GetxController {
         Get.off(AllContactShowPage());
       } else {
         Get.snackbar(
-          "This people already exists",
+          "This people already exists/Wrong input",
           "Add new phone number and NID/Birth certificate no.",
           backgroundColor: Colors.red.withOpacity(0.5),
           snackPosition: SnackPosition.BOTTOM,

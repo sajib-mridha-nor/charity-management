@@ -44,7 +44,7 @@ class HomePageController extends GetxController with StateMixin<HomeData> {
       print("ff ${res}");
       change(homeData, status: RxStatus.success());
     } catch (e) {
-      change(homeData, status: RxStatus.error());
+      change(null, status: RxStatus.error());
       isLoading(false);
       var error = NetworkExceptions.getDioException(e);
       var message = NetworkExceptions.getErrorMessage(error);

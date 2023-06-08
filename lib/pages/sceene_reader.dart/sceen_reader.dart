@@ -217,7 +217,7 @@ class _SceenerPageState extends State<SceenerPage> {
                             Get.back();
                           },
                           child: Text(
-                            "Cencle",
+                            "Cancel",
                           )),
                       SizedBox(
                         width: 48,

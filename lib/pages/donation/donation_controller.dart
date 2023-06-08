@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:donation_tracker/pages/contact/allcontact.dart';
 import 'package:donation_tracker/pages/donation/donation_form_page.dart';
+import 'package:donation_tracker/pages/donation_preview_page.dart';
 import 'package:donation_tracker/pages/home_page.dart';
 import 'package:donation_tracker/pages/donate_history_page.dart';
 import 'package:donation_tracker/utils/constants.dart';
@@ -9,10 +10,14 @@ import 'package:donation_tracker/utils/network/dio_client.dart';
 import 'package:donation_tracker/utils/network/network_exceptions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path/path.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class DonationController extends GetxController {
+import '../model/donate_get_response.dart';
+import '../model/post_donation_res.dart';
+
+class DonationController extends GetxController with  StateMixin<List<Donation>>{
   final dioClient = DioClient(BASE_URL, Dio());
   final id = Get.arguments["c_id"];
 
@@ -21,6 +26,7 @@ class DonationController extends GetxController {
   List result = [];
   var image;
   RxBool isLoading = false.obs;
+ List< Donation>? donatio;
 
   @override
   void onInit() {
@@ -83,13 +89,16 @@ class DonationController extends GetxController {
       //     }));
 
       final res = await dioClient.post("donates", data: formData);
+    
+
+      print(res);
       Get.snackbar(
         "Successful",
         "Submitted Successful, see details list",
         backgroundColor: Colors.green.withOpacity(0.5),
         snackPosition: SnackPosition.BOTTOM,
       );
-      Get.off(AllContactShowPage());
+   getDonationLsit();
       print("ff ${res}");
 
       isLoading(false);
@@ -103,6 +112,37 @@ class DonationController extends GetxController {
         backgroundColor: Colors.red.withOpacity(0.5),
         snackPosition: SnackPosition.BOTTOM,
       );
+    }
+  }
+    getDonationLsit() async {
+    var token = GetStorage().read("token");
+   
+    try {
+      change(null, status: RxStatus.loading());
+final res = await dioClient.get(
+        "contacts/details/$id", );
+      print('ress : ${res}');
+
+      donatio = DonationDetailsRes.fromJson(res).data;
+
+      Get.off(DonationPreviewPage(donation: donatio,));
+
+     
+
+     change(donatio, status: RxStatus.success());
+    } catch (e) {
+      print("catch v $e");
+
+      var error = NetworkExceptions.getDioException(e);
+      var message = NetworkExceptions.getErrorMessage(error);
+      change(null, status: RxStatus.error());
+      Get.snackbar(
+        "No Data found",
+        " ",
+        backgroundColor: Colors.green.withOpacity(0.5),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      print(message);
     }
   }
 

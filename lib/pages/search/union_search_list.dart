@@ -54,7 +54,7 @@ class _UnionContactShowPageState extends State<UnionContactShowPage> {
         appBar: AppBar(
           title: Text(
             "Union people list",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),
           ),
           centerTitle: true,
           // backgroundColor: Color.fromARGB(255, 147, 192, 244),

@@ -362,10 +362,10 @@ class _CustomFilePicker2State extends State<CustomFilePicker2> {
 
       final int sizeInBytes = file.lengthSync();
       final double sizeInMb = sizeInBytes / (1024 * 1024);
-      if (sizeInMb > (widget.maxFileSize ?? 2)) {
+      if (sizeInMb > (widget.maxFileSize ?? 4)) {
         Get.snackbar(
           "File is too big",
-          "File size must be less than ${(widget.maxFileSize ?? 2)}MB",
+          "File size must be less than ${(widget.maxFileSize ?? 4)}MB",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
         );

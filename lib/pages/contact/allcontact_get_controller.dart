@@ -38,7 +38,7 @@ class AllcontractGetController extends GetxController {
 
       res = await http.get(
           Uri.parse(
-              "https://ezze.dev/donation/api/v1/contacts?limit=$_pageSize&page=$pageKey"),
+              "${BASE_URL}contacts?limit=$_pageSize&page=$pageKey"),
           headers: {
             // 'Content-Type': 'application/json',
             // 'Accept': 'application/json',
