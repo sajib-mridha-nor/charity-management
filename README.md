@@ -1,16 +1,23 @@
-# donation_tracker
+# Charity Management 
 
-A new Flutter project.
+A Flutter project 
 
-## Getting Started
+## Key Features
 
-This project is a starting point for a Flutter application.
+* Donation Tracking: Monitor donations in real-time, including the amount, date, donor details, and the purpose of the donation.
+* Fund Allocation: Track how donations are allocated and spent, ensuring transparency and accountability.
+* Add New Donors: Easily add new donors to the system, capturing key details such as NID, phone number, 
 
-A few resources to get you started if this is your first Flutter project:
+* Search by : Quickly locate donor profiles using the NID no.,phone number,name  for donor details, including history.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Below are some screenshots of the app view.
+ 
+
+![Charity 1](https://github.com/user-attachments/assets/a06cefba-f5c5-4710-bd39-d2c5cdae3295)
+![Charity 2](https://github.com/user-attachments/assets/86a2a64d-2deb-40f5-991d-f27226fdac48)
+
+## Download
+
+You can [download](https://github.com/sajib-mridha-nor/charity-management/) the latest installable version of Androids.
+
